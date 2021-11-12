@@ -6,20 +6,6 @@ function findex(list) {
 	return result;
 }
 
-function $_COOKIE(){
-	let result = {}
-	let c = document.cookie
-	c = c.split('; ')
-	c.forEach(element =>{
-		let a = element.split('=')
-		let key = a[0];
-		let obj = {};
-		obj[key] = a[1];
-		result[key] = obj[key]
-	})
-	return result
-}
-
 function lc(){
 	localStorage.clear()
 }
@@ -31,8 +17,8 @@ if(localStorage['configuration']){
 }else{
 	config = {
 		"vertion":{
-			"js":0.1,
-			"css":0.1
+			"new_tab.html":"A.0",
+			"script.js":"A.0"
 		},
 		"parm":{
 			"quick-bar-on":true,
@@ -182,6 +168,10 @@ function quick_bar_d(id){
 
 function reac(){
 	config = {
+		"vertion":{
+			"new_tab.html":"A.1",
+			"script.js":"A.1"
+		},
 		"parm":{
 			"quick-bar-on":true,
 			"auto-update":true
@@ -198,14 +188,30 @@ function reac(){
 				"url":"https://google.com"
 			}
 		}
-	}
+	};
 	quick_bar_g()
 }
 
+/* update */
+
+function update(a,v){
+	let xhr = new XMLHttpRequest();
+	xhr.open("GET","https://raw.githubusercontent.com/flamebousteur/navigator_custom_newtab/main/"+a, true);
+	xhr.onreadystatechange = function(){
+		if (xhr.readyState==4 && xhr.status==200){
+			localStorage[a] = xhr.response
+			config["vertion"][a] = v
+			quick_bar_g()
+		}
+	}
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xhr.send();
+}
 
 /* other */
 
-window.onload = function(){
+function loadjs(){
+// window.onload = function (){
 	quick_bar_g()
 	findex(config["parm"]).forEach(element => {
 		let cn = document.getElementById(element)
@@ -216,16 +222,26 @@ window.onload = function(){
 		}
 	})
 	qbon()
+	let ver;
+	let vxhr = new XMLHttpRequest();
+	vxhr.open("GET","https://raw.githubusercontent.com/flamebousteur/navigator_custom_newtab/main/vertion.json", true);
+	vxhr.onreadystatechange = function(){
+		if (vxhr.readyState==4 && vxhr.status==200){
+			ver = JSON.parse(vxhr.responseText)
+			findex(ver).forEach(element => {
+				console.log(ver[element])
+				console.log(config["vertion"][element])
+				if(config["vertion"][element] == ver[element]){
+					console.log(element+" vertion ok")
+				}else{
+					console.log(element+" vertion up")
+					update(element,ver[element])
+				}
+			})
+		}
+	}
+	vxhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	vxhr.send();
 };
 
-var ver;
-let vxhr = new XMLHttpRequest();
-vxhr.open("GET","./vertion.json", true);
-vxhr.onreadystatechange = function(){
-	if (vxhr.readyState==4 && vxhr.status==200){
-		ver = JSON.parse(vxhr.responseText)
-		console.log(ver)
-	}
-}
-vxhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-vxhr.send();
+loadjs()
