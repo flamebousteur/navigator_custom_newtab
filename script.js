@@ -6,20 +6,12 @@ function findex(list) {
 	return result;
 }
 
-function lc(){
-	localStorage.clear()
-}
-
 let config;
 
 if(localStorage['configuration']){
 	config = JSON.parse(localStorage['configuration'])
 }else{
 	config = {
-		"vertion":{
-			"new_tab.html":"A.0",
-			"script.js":"A.0"
-		},
 		"parm":{
 			"quick-bar-on":true,
 			"auto-update":true
@@ -169,7 +161,7 @@ function quick_bar_d(id){
 function reac(){
 	config = {
 		"parm":{
-			"quick-bar":true,
+			"quick-bar-on":true,
 			"auto-update":true
 		},
 		"quick-bar-list":{
@@ -190,4 +182,13 @@ function reac(){
 
 window.onload = function(){
 	quick_bar_g()
-}
+	findex(config["parm"]).forEach(element => {
+		let cn = document.getElementById(element)
+		if(config["parm"][element] == true){
+			cn.className = "input-chec input"
+		}else{
+			cn.className = "input"
+		}
+	})
+	qbon()
+};
