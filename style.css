@@ -1,0 +1,383 @@
+/*v 0.1*/
+
+*{
+	font:caption;
+}
+
+a{
+	text-decoration:none;
+}
+
+body{
+	background-color: #444;
+}
+
+
+/* quick-bar */
+
+#quick-bar{
+	position:fixed;
+	top:0px;
+	bottom:0px;
+	margin-top:15px;
+	margin-left:1%;
+	margin-bottom:15px;
+	background-color:#2e2e2e;
+	width:150px;
+	border:1px solid #2e2e2e;
+	border-radius:10px;
+	text-align:center;
+	overflow: auto;
+	scrollbar-color: #2E2E2E #222;
+	scrollbar-width: thin;
+	z-index:2;
+}
+
+.inner-ele{
+	cursor:pointer;
+}
+
+.quick-ele{
+	text-align:center;
+	border-radius:10px;
+	height:100px;
+	top:25px;
+	width:100px;
+	margin: auto;
+	background-color:#FFF2;
+	transition:background-color, 0.1s;
+}
+
+.quick-ele:hover{
+	background-color:#FFF4;
+}
+
+.void{
+	height:10px;
+}
+
+.quick-ele > .text{
+	color:white;
+}
+.quick-ele:hover > .text{
+	text-decoration:underline;
+}
+
+.quick-ele > img{
+	margin-top:15px;
+	width:50px;
+	height:50px;
+}
+
+.cross{
+	margin:30px;
+	background-color:#FFF3;
+	border:0px solid #FFF0;
+	border-radius:50%;
+	cursor:pointer;
+	transition:background-color, 0.1s;
+}
+
+#add-ele:hover > .cross{
+	background-color:#FFF6;
+}
+
+.qbm{
+	padding:15px 2.5px;
+	margin-bottom:-55px;
+	background-color:#777;
+	border:1px solide #FFF0;
+	border-radius:10px 10px 0px 0px;
+	cursor:pointer;
+}
+
+.qbm:hover{
+	background-color:#666;
+}
+
+.qbd{
+	padding:15px 2.5px;
+	margin-left:-25px;
+	margin-right:110px;
+	margin-bottom:-100px;
+	background-color:#777;
+	border:1px solide #FFF0;
+	border-radius:0px 0px 10px 10px;
+	cursor:pointer;
+}
+
+.qbd:hover{
+	background-color:#666;
+}
+
+
+/* search */
+
+.chear{
+	z-index:1;
+}
+
+.chear > input{
+	position:absolute;
+	margin:auto;
+	top:0;
+	bottom:0;
+	left:50px;
+	right:0;
+	padding:5px;
+	background-color:#3f3f3f;
+	border:2px solid #232439;
+	border-radius:10px;
+	width:45%;
+	color:white;
+}
+
+.chear > input:focus{
+	background-color:#4e4e4e;
+}
+
+.chear > svg{
+	position:absolute;
+	margin:auto;
+	top:0;
+	bottom:0;
+	left:calc(45% + 15px);
+	right:0;
+	background-color:#FFF3;
+	border:1px solid #FFF0;
+	border-radius:25%;
+	transition:background-color, 0.1s;
+}
+
+.chear > svg:hover{
+	background-color:#FFF6;
+}
+
+.chear > img{
+	position:absolute;
+	margin:auto;
+	top:0;
+	bottom:100px;
+	left:50px;
+	right:0;
+	width:45%;
+}
+
+
+/* parameter */
+
+#parm{
+	transition:opacity 0.25s;
+	position:absolute;
+	margin:auto;
+	top:0;
+	right:0;
+	width:250px;
+	height:100%;
+	background-color:#2e2e2e;
+	z-index:3;
+	color:white;
+	opacity:0;
+	visibility:hidden;
+}
+
+#parm > .more > a{
+	color:white;
+	display: block;
+	text-decoration:none;
+	margin:auto 10px;
+	cursor:pointer;
+}
+
+#parm > .more > a:hover{
+	text-decoration:underline;
+}
+
+#parm > .in > button{
+	display: block;
+	margin:3px auto;
+	cursor:pointer;
+	background-color:#3b3b3b;
+	padding:5px 10px;
+	border:1px solid #3b3b3b;
+	border-radius:40px;
+	color:white;
+}
+
+#parm > .in > button:hover{
+	background-color:#444;
+	border:1px solid #444;
+}
+
+#parm > .in > .conf{
+	position:absolute;
+	margin:auto;
+	top:40px;
+	right:5px;
+	z-index:4;
+	color:white;
+}
+
+#parm > .in > .conf > .input{
+	display: block;
+	margin:5px 10px 3px auto;
+	width:25px;
+	height:15px;
+	background-color:#3b3b3b;
+	border:1px solid #3b3b3b;
+	cursor:pointer;
+	border-radius:40px;
+}
+
+#parm > .in > .conf > .input:hover{
+	background-color:#444;
+	border:1px solid #444;
+}
+
+#parm > .in > .conf > .input-chec{
+	background-color:#35C;
+	border:1px solid #35C;
+}
+
+#parm > .in > .conf > .input-chec:hover{
+	background-color:#57E;
+	border:1px solid #57E;
+}
+
+.inin{
+	width:10px;
+	height:10px;
+	background-color:#222;
+	border-radius:40px;
+	margin:2px;
+	margin-left: 1px;
+	transition:margin-left 0.5s, margin-right 0.5s;
+}
+
+#parm > .in > .conf > .input-chec > .inin{
+	margin-left:14px;
+	margin-right:1px;
+}
+
+#parm > .in > .confn{
+	margin-top:10px;
+}
+
+#parm > .in > .confn > span{
+	display:block;
+	margin:10px;
+}
+
+#parm > .fhr{
+	margin:10px auto;
+	width:90%;
+	height:1px;
+	background-color:white;
+}
+
+#parm > .close{
+	margin:5px 10px;
+	padding:4px;
+}
+
+#parm > .close > span{
+	padding:4px;
+	background-color:#FFF4;
+	border:1px solid #FFF0;
+	border-radius:10px;
+	cursor:pointer;
+}
+
+#parm > .close > span:hover{
+	background-color:#FFF6;
+}
+
+#open{
+	position:absolute;
+	padding:2px;
+	margin:auto;
+	top:15px;
+	right:5px;
+	background-color:#FFF0;
+	border-radius:5px;
+}
+
+#open:hover{
+	background-color:#FFF3;
+}
+
+
+/* popup */
+
+#popup{
+	position:absolute;
+	margin:auto;
+	text-align:center;
+	top:30%;
+	bottom:30%;
+	right:30%;
+	left:30%;
+	background-color:#222;
+	border:1px solid #FFF0;
+	border-radius:40px;
+	opacity:0;
+	visibility:hidden;
+	z-index:6;
+}
+
+#popup > input{
+	margin:5px;
+	padding:5px;
+	background-color:#3f3f3f;
+	border:2px solid #232439;
+	border-radius:10px;
+	color:white;
+	width:50%;
+}
+
+#popup > input:focus{
+	background-color:#4e4e4e;
+}
+
+#popup > select{
+	width:75px;
+	margin:5px;
+	padding:5px;
+	background-color:#3f3f3f;
+	border:2px solid #232439;
+	border-radius:10px;
+	color:white;
+}
+
+#popup > select:hover{
+	background-color:#4e4e4e;
+}
+
+#popup > #close{
+	background-color:#FFF4;
+	border:1px solid #FFF0;
+	border-radius:10px;
+	cursor:pointer;
+	margin:auto;
+	padding:5px;
+	width:50px;
+	color:white;
+}
+
+#popup > #close:hover{
+	background-color:#FFF6;
+}
+
+#popup > #ok{
+	padding:5px 10px;
+	background-color:#FFF3;
+	border:1px solid #FFF0;
+	border-radius:10px;
+	color:white;
+	transition:background-color, 0.1s;
+}
+
+#popup > #ok:hover{
+	background-color:#FFF6;
+
+}
