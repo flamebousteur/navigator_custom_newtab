@@ -168,12 +168,8 @@ function quick_bar_d(id){
 
 function reac(){
 	config = {
-		"vertion":{
-			"new_tab.html":"A.1",
-			"script.js":"A.1"
-		},
 		"parm":{
-			"quick-bar-on":true,
+			"quick-bar":true,
 			"auto-update":true
 		},
 		"quick-bar-list":{
@@ -192,56 +188,6 @@ function reac(){
 	quick_bar_g()
 }
 
-/* update */
-
-function update(a,v){
-	let xhr = new XMLHttpRequest();
-	xhr.open("GET","https://raw.githubusercontent.com/flamebousteur/navigator_custom_newtab/main/"+a, true);
-	xhr.onreadystatechange = function(){
-		if (xhr.readyState==4 && xhr.status==200){
-			localStorage[a] = xhr.response
-			config["vertion"][a] = v
-			quick_bar_g()
-		}
-	}
-	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	xhr.send();
-}
-
-/* other */
-
-function loadjs(){
-// window.onload = function (){
+window.onload = function(){
 	quick_bar_g()
-	findex(config["parm"]).forEach(element => {
-		let cn = document.getElementById(element)
-		if(config["parm"][element] == true){
-			cn.className = "input-chec input"
-		}else{
-			cn.className = "input"
-		}
-	})
-	qbon()
-	let ver;
-	let vxhr = new XMLHttpRequest();
-	vxhr.open("GET","https://raw.githubusercontent.com/flamebousteur/navigator_custom_newtab/main/vertion.json", true);
-	vxhr.onreadystatechange = function(){
-		if (vxhr.readyState==4 && vxhr.status==200){
-			ver = JSON.parse(vxhr.responseText)
-			findex(ver).forEach(element => {
-				console.log(ver[element])
-				console.log(config["vertion"][element])
-				if(config["vertion"][element] == ver[element]){
-					console.log(element+" vertion ok")
-				}else{
-					console.log(element+" vertion up")
-					update(element,ver[element])
-				}
-			})
-		}
-	}
-	vxhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	vxhr.send();
-};
-
-loadjs()
+}
