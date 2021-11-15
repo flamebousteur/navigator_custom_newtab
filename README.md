@@ -10,3 +10,4 @@ in futur:
 - dev mode
 - update
 - message
+- news
