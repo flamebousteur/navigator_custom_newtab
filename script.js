@@ -13,8 +13,8 @@ if(localStorage['configuration']){
 }else{
 	config = {
 		"parm":{
-			"quick-bar-on":true,
-			"auto-update":true
+			"quick_bar_on":true,
+			"auto_update":true
 		},
 		"quick-bar-list":{
 			1:{
@@ -51,8 +51,26 @@ function search(a){
 }
 
 /* parameter */
+function parm_g(){
+	let cnf = document.getElementById("conf")
+	let a = true
+	findex(config["parm"]).forEach(element => {
+		cnf.innerHTML += '<span>'+element+'</span>'+
+'<div id="'+element+'">'+
+'	<div class="inin"></div>'+
+'</div>'
+		let cn = document.getElementById(element)
+		if(config["parm"][element] == true){
+			cn.className = "input-chec input"
+		}else{
+			cn.className = "input"
+		}
+		cn.onclick = function(){parm(2,element)}
+	})
+}
 
 function parm(a,b){
+	console.log("a")
 	if(a == 2){
 		let cn = document.getElementById(b)
 		if(cn.className == "input"){
@@ -161,8 +179,9 @@ function quick_bar_d(id){
 function reac(){
 	config = {
 		"parm":{
-			"quick-bar-on":true,
-			"auto-update":true
+			"quick_bar_on":true,
+			"auto_update":true,
+			"dev_mode":true
 		},
 		"quick-bar-list":{
 			1:{
@@ -178,17 +197,11 @@ function reac(){
 		}
 	};
 	quick_bar_g()
+	return true
 }
 
 window.onload = function(){
 	quick_bar_g()
-	findex(config["parm"]).forEach(element => {
-		let cn = document.getElementById(element)
-		if(config["parm"][element] == true){
-			cn.className = "input-chec input"
-		}else{
-			cn.className = "input"
-		}
-	})
+	parm_g()
 	qbon()
 };
