@@ -209,18 +209,9 @@ body{
 	border:1px solid #444;
 }
 
-#parm > .in > .conf{
-	position:absolute;
-	margin:auto;
-	top:40px;
-	right:5px;
-	z-index:4;
-	color:white;
-}
-
-#parm > .in > .conf > .input{
+#parm > .in > .confn > .input{
 	display: block;
-	margin:5px 10px 3px auto;
+	margin:-26.5px 10px 3px auto;
 	width:25px;
 	height:15px;
 	background-color:#3b3b3b;
@@ -229,17 +220,17 @@ body{
 	border-radius:40px;
 }
 
-#parm > .in > .conf > .input:hover{
+#parm > .in > .confn > .input:hover{
 	background-color:#444;
 	border:1px solid #444;
 }
 
-#parm > .in > .conf > .input-chec{
+#parm > .in > .confn > .input-chec{
 	background-color:#35C;
 	border:1px solid #35C;
 }
 
-#parm > .in > .conf > .input-chec:hover{
+#parm > .in > .confn > .input-chec:hover{
 	background-color:#57E;
 	border:1px solid #57E;
 }
@@ -254,7 +245,7 @@ body{
 	transition:margin-left 0.5s, margin-right 0.5s;
 }
 
-#parm > .in > .conf > .input-chec > .inin{
+#parm > .in > .confn > .input-chec > .inin{
 	margin-left:14px;
 	margin-right:1px;
 }
