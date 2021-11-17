@@ -7,7 +7,6 @@ actual:
 
 in futur:
 - use the google auto-complete api for search input
-- dev mode
 - update
 - message
 - news
