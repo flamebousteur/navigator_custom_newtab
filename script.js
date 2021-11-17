@@ -1,3 +1,5 @@
+console.log("programe start")
+
 function findex(list) {
 	let result = [];
 	for (let[key,value] of Object.entries(list)) {
