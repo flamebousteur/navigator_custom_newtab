@@ -47,6 +47,7 @@ function search(a){
 	}
 	if(a != ""){
 		a = a.replace(new RegExp("&", 'g'), "%26")
+		a = a.replace(new RegExp("/", 'g'), "%2F")
 		a = a.replace(new RegExp(" ", 'g'), "+")
 		document.location.href = "https://www.google.com/search?q="+a
 	}
