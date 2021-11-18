@@ -1,7 +1,8 @@
 /*v 0.1*/
 
 *{
-	font:caption;
+	letter-spacing:1px;
+	font-size:13px;
 }
 
 a{
@@ -9,7 +10,7 @@ a{
 }
 
 body{
-	background-color: #444;
+	background-color:#444;
 }
 
 
@@ -129,6 +130,7 @@ body{
 	border:2px solid #232439;
 	border-radius:10px;
 	width:45%;
+	height:40px;
 	color:white;
 }
 
