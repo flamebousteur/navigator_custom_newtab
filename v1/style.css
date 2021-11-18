@@ -87,7 +87,6 @@ body{
 	padding:15px 2.5px;
 	margin-bottom:-55px;
 	background-color:#777;
-	border:1px solide #FFF0;
 	border-radius:10px 10px 0px 0px;
 	cursor:pointer;
 }
@@ -102,7 +101,6 @@ body{
 	margin-right:110px;
 	margin-bottom:-100px;
 	background-color:#777;
-	border:1px solide #FFF0;
 	border-radius:0px 0px 10px 10px;
 	cursor:pointer;
 }
