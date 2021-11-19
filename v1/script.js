@@ -267,5 +267,4 @@ window.onload = function(){
 	parm_g()
 	chec_parm()
 	gclick()
-	messages()
 };
