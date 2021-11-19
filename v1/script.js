@@ -1,5 +1,6 @@
 console.log("programe start")
 
+/*lib*/
 function findex(list) {
 	let result = [];
 	for (let[key,value] of Object.entries(list)) {
@@ -8,36 +9,94 @@ function findex(list) {
 	return result;
 }
 
+var flamebousteur_lib_msgs = [["",0.001]]
+var flamebousteur_lib_msg_on = true
+function msg(txt,time){
+	if(!document.getElementById("flamebousteur_lib_msg")){
+		document.body.innerHTML = '<div id="flamebousteur_lib_msg">msg</div>'+document.body.innerHTML
+	}
+	if(typeof time != 'undefined'){
+		time = time * 1000
+	}else{
+		time = 1000
+	}
+	flamebousteur_lib_msgs.push([txt,time])
+	function msgb(){
+		flamebousteur_lib_msg_on = false
+		let msg = document.getElementById("flamebousteur_lib_msg")
+		msg.style.opacity = "1";
+		msg.innerHTML = flamebousteur_lib_msgs[0][0]
+		window.setTimeout(msgp, flamebousteur_lib_msgs[0][1]);
+		function msgp(){
+			msg.style.opacity = "0";
+			window.setTimeout(function() {
+				flamebousteur_lib_msg_on = true;
+				if(flamebousteur_lib_msgs[0]){
+					msgb(flamebousteur_lib_msgs)
+				}
+			},1000)
+			msg.innerHTML = ''
+		}
+		flamebousteur_lib_msgs.shift()
+	}
+	if(flamebousteur_lib_msg_on){
+		msgb()
+	}
+}
+/*end lib*/
+
+const dconfig = {
+	"parm":{
+		"quick-bar-on":true,
+		"auto-update":true,
+		"dev-mode":false
+	},
+	"quick-bar-list":{
+		1:{
+			"title":"flamebousteur web-site",
+			"img":"https://flamebousteur.github.io/favicon.ico",
+			"url":"https://flamebousteur.github.io/"
+		},
+		2:{
+			"title":"google",
+			"img":"https://google.com/favicon.ico",
+			"url":"https://google.com"
+		}
+	},
+	"more":{
+	}
+}
+
 let config;
 
 if(localStorage['configuration']){
 	config = JSON.parse(localStorage['configuration'])
 }else{
-	config = {
-		"parm":{
-			"quick_bar_on":true,
-			"auto_update":true
-		},
-		"quick-bar-list":{
-			1:{
-				"title":"flamebousteur web-site",
-				"img":"https://flamebousteur.github.io/favicon.ico",
-				"url":"https://flamebousteur.github.io/"
-			},
-			2:{
-				"title":"google",
-				"img":"https://google.com/favicon.ico",
-				"url":"https://google.com"
-			}
-		}
-	}
+	config = dconfig
+}
+
+function jsls(){
+	localStorage['configuration'] = JSON.stringify(config)
+}
+
+function gclick(){
+	document.getElementById("add-ele").onclick = function (){addele()}
+	document.getElementById("open").onclick = function (){parm(1)}
+	document.getElementById("pclose").onclick = function (){parm()}
+	document.getElementById("update-but").onclick = function (){}
+	document.getElementById("sci").onclick = function (){search()}
+	document.getElementById("sc").onKeyUp = function (){sckup(event)}
 }
 
 /* search */
-
 function sckup(e){
 	if(e.key === "Enter"){
 		search()
+	}else{
+		/*
+		a = document.getElementById("sc").value
+		xhr too the google api "https://www.google.com/complete/search?q="+input+"&client=gws-wiz&xssi=t&pq="+input
+		*/
 	}
 }
 
@@ -54,12 +113,17 @@ function search(a){
 }
 
 /* parameter */
+function chec_parm(){
+	qbon()
+	dvon()
+}
+
 function parm_g(){
 	let cnf = document.getElementById("conf")
 	let a = true
 	findex(config["parm"]).forEach(element => {
 		cnf.innerHTML += '<span>'+element+'</span>'+
-'<div id="'+element+'">'+
+'<div onclick="parm(2,\''+element+'\')" id="'+element+'">'+
 '	<div class="inin"></div>'+
 '</div>'
 		let cn = document.getElementById(element)
@@ -68,12 +132,10 @@ function parm_g(){
 		}else{
 			cn.className = "input"
 		}
-		cn.onclick = function(){parm(2,element)}
 	})
 }
 
 function parm(a,b){
-	console.log("a")
 	if(a == 2){
 		let cn = document.getElementById(b)
 		if(cn.className == "input"){
@@ -84,7 +146,7 @@ function parm(a,b){
 			config["parm"][b] = false
 		}
 		quick_bar_g()
-		qbon()
+		chec_parm()
 	}else{
 		let p = document.getElementById('parm').style
 		if(a == 1){
@@ -99,8 +161,15 @@ function parm(a,b){
 	}
 }
 
-/*quick_bar*/
+function moreparm_g(){
+	document.getElementById("more").innerHTML = ""
+	findex(config["more"]).forEach(element => {
+		document.getElementById("more").innerHTML += '<a onclick="'+config["more"][element]["fun"]+'">'+config["more"][element]["name"]+'</a>'
+	})
+	return true
+}
 
+/*quick_bar*/
 function qbon(){
 	if(config["parm"]["quick-bar-on"] == false){
 		document.getElementById("quick-bar").style.visibility = "hidden"
@@ -178,33 +247,25 @@ function quick_bar_d(id){
 }
 
 /* dev function */
+function dvon(){
+	if(config["parm"]["dev-mode"]){
+		config["more"]["resets configuration"] = {"name":"resets configuration","fun":"reac()"}
+	}else{
+		delete config["more"]["resets configuration"]
+	}
+	moreparm_g()
+	jsls()
+}
 
 function reac(){
-	config = {
-		"parm":{
-			"quick_bar_on":true,
-			"auto_update":true,
-			"dev_mode":true
-		},
-		"quick-bar-list":{
-			1:{
-				"title":"flamebousteur web-site",
-				"img":"https://flamebousteur.github.io/favicon.ico",
-				"url":"https://flamebousteur.github.io/"
-			},
-			2:{
-				"title":"google",
-				"img":"https://google.com/favicon.ico",
-				"url":"https://google.com"
-			}
-		}
-	};
-	quick_bar_g()
-	return true
+	config = dconfig
+	jsls()
 }
 
 window.onload = function(){
 	quick_bar_g()
 	parm_g()
-	qbon()
+	chec_parm()
+	gclick()
+	messages()
 };
