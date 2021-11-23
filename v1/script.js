@@ -1,42 +1,40 @@
 console.log("programe start")
 
-const page_index = '<div id="quick-bar">'+
-'		<div id="ele"></div>'+
-'		<div style="height:30px;"></div>'+
-'		<div id="add-ele" class="quick-ele">'+
-'			<svg class="cross" xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 0 24 24" width="40px" fill="#FFFFFF"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>'+
-'		</div>'+
-'	</div>'+
-'	<div class="chear">'+
-'		<select id="sct">'+
-'			<option value="https://www.google.com/search?q=">google</option>'+
-'			<option value="https://www.youtube.com/results?q=">youtube</option>'+
-'			<option value="https://github.com/search?q=">github</option>'+
-'		</select>'+
-'		<input id="sc" placeholder="search on google" type="search"/>'+
-'		<svg id="sci" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="20px" width="20px" fill="#FFF"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8z"/></svg>'+
-'	</div>'+
-'	<svg id="open" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFF"><path d="M19.43 12.98c.04-.32.07-.64.07-.98 0-.34-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.09-.16-.26-.25-.44-.25-.06 0-.12.01-.17.03l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.06-.02-.12-.03-.18-.03-.17 0-.34.09-.43.25l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98 0 .33.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.09.16.26.25.44.25.06 0 .12-.01.17-.03l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.06.02.12.03.18.03.17 0 .34-.09.43-.25l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zm-1.98-1.71c.04.31.05.52.05.73 0 .21-.02.43-.05.73l-.14 1.13.89.7 1.08.84-.7 1.21-1.27-.51-1.04-.42-.9.68c-.43.32-.84.56-1.25.73l-1.06.43-.16 1.13-.2 1.35h-1.4l-.19-1.35-.16-1.13-1.06-.43c-.43-.18-.83-.41-1.23-.71l-.91-.7-1.06.43-1.27.51-.7-1.21 1.08-.84.89-.7-.14-1.13c-.03-.31-.05-.54-.05-.74s.02-.43.05-.73l.14-1.13-.89-.7-1.08-.84.7-1.21 1.27.51 1.04.42.9-.68c.43-.32.84-.56 1.25-.73l1.06-.43.16-1.13.2-1.35h1.39l.19 1.35.16 1.13 1.06.43c.43.18.83.41 1.23.71l.91.7 1.06-.43 1.27-.51.7 1.21-1.07.85-.89.7.14 1.13zM12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 6c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>'+
-'	<div id="parm">'+
-'		<div class="close">'+
-'			<span id="pclose">close</span>'+
-'		</div>'+
-'		<div class="in">'+
-'			<div id="conf" class="confn"></div><br/>'+
-'			<button id="update-but">update</button>'+
-'		</div>'+
-'		<div class="fhr"></div>'+
-'		<div id="more"></div>'+
-'	</div>'+
-'	<div id="popup"></div>';
-
-const page_parm ='<a id="back">index</a>'+
-'<div id="pselector">'+
-'	<div>'+
-'		<img src="https://google.com/favicon.ico">'+
-'		<span>général</span>'+
-'	</div>'+
-'</div>'
+const page = {
+	"index":'<div id="quick-bar">'+
+		'		<div id="ele"></div>'+
+		'		<div style="height:30px;"></div>'+
+		'		<div id="add-ele" class="quick-ele">'+
+		'			<svg class="cross" xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 0 24 24" width="40px" fill="#FFFFFF"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>'+
+		'		</div>'+
+		'	</div>'+
+		'	<div class="chear">'+
+		'		<select id="sct">'+
+		'		</select>'+
+		'		<input id="sc" placeholder="search on google" type="search"/>'+
+		'		<svg id="sci" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="20px" width="20px" fill="#FFF"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8z"/></svg>'+
+		'	</div>'+
+		'	<svg id="open" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFF"><path d="M19.43 12.98c.04-.32.07-.64.07-.98 0-.34-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.09-.16-.26-.25-.44-.25-.06 0-.12.01-.17.03l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.06-.02-.12-.03-.18-.03-.17 0-.34.09-.43.25l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98 0 .33.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.09.16.26.25.44.25.06 0 .12-.01.17-.03l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.06.02.12.03.18.03.17 0 .34-.09.43-.25l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zm-1.98-1.71c.04.31.05.52.05.73 0 .21-.02.43-.05.73l-.14 1.13.89.7 1.08.84-.7 1.21-1.27-.51-1.04-.42-.9.68c-.43.32-.84.56-1.25.73l-1.06.43-.16 1.13-.2 1.35h-1.4l-.19-1.35-.16-1.13-1.06-.43c-.43-.18-.83-.41-1.23-.71l-.91-.7-1.06.43-1.27.51-.7-1.21 1.08-.84.89-.7-.14-1.13c-.03-.31-.05-.54-.05-.74s.02-.43.05-.73l.14-1.13-.89-.7-1.08-.84.7-1.21 1.27.51 1.04.42.9-.68c.43-.32.84-.56 1.25-.73l1.06-.43.16-1.13.2-1.35h1.39l.19 1.35.16 1.13 1.06.43c.43.18.83.41 1.23.71l.91.7 1.06-.43 1.27-.51.7 1.21-1.07.85-.89.7.14 1.13zM12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 6c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>'+
+		'	<div id="parm">'+
+		'		<div class="close">'+
+		'			<span id="pclose">close</span>'+
+		'		</div>'+
+		'		<div class="in">'+
+		'			<div id="conf" class="confn"></div><br/>'+
+		'			<button id="update-but">update</button>'+
+		'		</div>'+
+		'		<div class="fhr"></div>'+
+		'		<div id="more"></div>'+
+		'	</div>'+
+		'	<div id="popup"></div>',
+	"parm":'<a id="back">index</a>'+
+		'<div id="pselector">'+
+		'	<div>'+
+		'		<img src="https://google.com/favicon.ico">'+
+		'		<span>général</span>'+
+		'	</div>'+
+		'</div>'
+}
 
 /*lib*/
 function findex(list) {
@@ -101,6 +99,20 @@ const dconfig = {
 			"url":"https://google.com"
 		}
 	},
+	"search":{
+		"type":{
+			"google":{
+				"url":"https://www.google.com/search?q="
+			},
+			"youtube":{
+				"url":"https://www.youtube.com/results?q="
+			},
+			"github":{
+				"url":"https://github.com/search?q="
+			}
+		},
+		"select":"google"
+	},
 	"more":{
 		// "more parameter":{
 			// "name":"more parameter",
@@ -121,6 +133,8 @@ function jsls(){
 	localStorage['configuration'] = JSON.stringify(config)
 }
 
+let inputfocus = true;
+
 function gclick(){
 	document.getElementById("add-ele").onclick = function (){addele()}
 	document.getElementById("open").onclick = function (){parm(1)}
@@ -128,17 +142,61 @@ function gclick(){
 	document.getElementById("update-but").onclick = function (){}
 	document.getElementById("sci").onclick = function (){search()}
 	document.getElementById("sc").onkeyup = function (){sckup(event)}
+	document.body.onkeyup = function (){
+		if(inputfocus){
+			document.getElementById("sc").focus()
+		}else{
+			inputfocus = true
+		}
+	}
+}
+
+let charge_bar_on = 1
+function charge_bar(t){
+	let cb = document.getElementById("charge_bar").style
+	if(t == 1){
+		charge_bar_on = 1
+	}else{
+		charge_bar_on = 0
+	}
+	if(charge_bar_on == 0){
+		cb.visibility = "hidden"
+	}else{
+		cb.visibility = "visible"
+	}
+	function a(){
+		if(charge_bar_on == 1){
+			cb.backgroundPositionX = "0px"
+			window.setTimeout(function(){
+				b();
+			},1000)
+		}
+	}
+	function b(){
+		if(charge_bar_on == 1){
+			cb.backgroundPositionX = "1000px"
+			window.setTimeout(function(){
+				a()
+			},1000)
+		}
+	}
+	b()
 }
 
 /* search */
 function sckup(e){
 	if(e.key == "Enter"){
 		search()
+	}else if(e.key == "PageDown"){
+	}else if(e.key == "PageUp"){
 	}else{
 		/*
 		a = document.getElementById("sc").value
 		xhr too the google api "https://www.google.com/complete/search?q="+input+"&client=gws-wiz&xssi=t&pq="+input
 		*/
+	}
+	if(inputfocus == true){
+		inputfocus = false
 	}
 }
 
@@ -153,6 +211,18 @@ function search(a){
 		a = a.replace(new RegExp(" ", 'g'), "+")
 		document.location.href = t+a
 	}
+}
+
+function g_search_type(){
+	let sct = document.getElementById("sct")
+	sct.innerHTML = ''
+	findex(config["search"]["type"]).forEach(element => {
+		let selected = ""
+		if(element == config["search"]["select"]){
+			selected = "selected"
+		}
+		sct.innerHTML += '<option '+selected+' value="'+config["search"]["type"][element]["url"]+'">'+element+'</option>'
+	})
 }
 
 /* parameter */
@@ -214,7 +284,7 @@ function moreparm_g(){
 }
 
 function mp(){
-	document.getElementById("innerpage").innerHTML = page_parm
+	document.getElementById("innerpage").innerHTML = page["parm"]
 	history.pushState("", "", "#parm")
 	document.getElementById("back").onclick = function (){pr()}
 }
@@ -223,14 +293,14 @@ function mp(){
 function qbon(){
 	if(config["parm"]["quick-bar-on"] == false){
 		document.getElementById("quick-bar").style.visibility = "hidden"
-		document.getElementById("sc").style.left = "0px"
-		document.getElementById("sci").style.left = "calc(45% - 35px)"
-		document.getElementById("sct").style.left = "0px"
+		document.getElementById("sc").style.left = "100px"
+		document.getElementById("sci").style.left = "calc(45% + 55px)"
+		document.getElementById("sct").style.left = "100px"
 	}else{
 		document.getElementById("quick-bar").style.visibility = "visible"
-		document.getElementById("sc").style.left = "50px"
-		document.getElementById("sci").style.left = "calc(45% + 15px)"
-		document.getElementById("sct").style.left = "50px"
+		document.getElementById("sc").style.left = "150px"
+		document.getElementById("sci").style.left = "calc(45% + 110px)"
+		document.getElementById("sct").style.left = "150px"
 	}
 }
 
@@ -247,6 +317,7 @@ function quick_bar_g(){
 }
 
 function addele(a){
+	inputfocus = false
 	let b = findex(config["quick-bar-list"]).length + 1;
 	if(a){
 		b = a;
@@ -276,8 +347,8 @@ function addele(a){
 	c.style.visibility = "visible"
 	function close(){
 		c.innerHTML = ''
-		c.style.opacity = "0"
 		c.style.visibility = "hidden"
+		inputfocus = true
 	}
 	document.getElementById("ok").onclick = function(){
 		config["quick-bar-list"][b] = {
@@ -318,10 +389,11 @@ function gall(){
 	quick_bar_g()
 	parm_g()
 	chec_parm()
+	g_search_type()
 }
 
 function pr(){
-	document.getElementById("innerpage").innerHTML = page_index
+	document.getElementById("innerpage").innerHTML = page["index"]
 	gclick()
 	gall()
 }
