@@ -121,16 +121,17 @@ body{
 	margin:auto;
 	top:0;
 	bottom:0;
-	left:0;
+	left:100px;
 	right:calc(45% + 40px);
 	padding:5px;
 	background-color:#3f3f3f;
 	border:2px solid #232439;
 	border-right:0px solid #FFF0;
 	border-radius:10px 0 0 10px;
-	width:40px;
+	width:100px;
 	height:40px;
 	color:white;
+	
 }
 
 .chear > input{
@@ -138,7 +139,7 @@ body{
 	margin:auto;
 	top:0;
 	bottom:0;
-	left:50px;
+	left:100px;
 	right:0;
 	padding:5px;
 	background-color:#3f3f3f;
@@ -159,7 +160,7 @@ body{
 	margin:auto;
 	top:0;
 	bottom:0;
-	left:calc(45% + 15px);
+	left:calc(45% + 55px);
 	right:0;
 	background-color:#FFF3;
 	border:1px solid #FFF0;
@@ -281,7 +282,9 @@ body{
 	margin:10px auto;
 	width:90%;
 	height:1px;
-	background-color:white;
+	background:linear-gradient(to right,#2e2e2e,#444,#2e2e2e);
+	transition:background 1s;
+	background-position: calc(100% + 10px);
 }
 
 #parm > .close{
@@ -430,4 +433,17 @@ body{
 	border-radius: 0 10px 10px 0;
 	padding: 5px;
 	position: absolute;
+}
+
+#charge_bar{
+	position: absolute;
+	width: 100%;
+	height: 3px;
+	margin: auto;
+	top: 0;
+	right: 0;
+	left: 0;
+	background: linear-gradient(to right,#222,#444,#222);
+	transition: background 1s;
+	visibility: hidden;
 }
