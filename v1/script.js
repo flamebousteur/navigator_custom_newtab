@@ -21,7 +21,7 @@ const page = {
 		'		</div>'+
 		'		<div class="in">'+
 		'			<div id="conf" class="confn"></div><br/>'+
-		'			<button id="update-but">update</button>'+
+//		'			<button id="update-but">update</button>'+
 		'		</div>'+
 		'		<div class="fhr"></div>'+
 		'		<div id="more"></div>'+
@@ -84,7 +84,7 @@ function msg(txt,time){
 const dconfig = {
 	"parm":{
 		"quick-bar-on":true,
-		"auto-update":true,
+//		"auto-update":true,
 		"dev-mode":false
 	},
 	"quick-bar-list":{
@@ -121,6 +121,8 @@ const dconfig = {
 	}
 }
 
+let parm_open = false;
+
 let config;
 
 if(localStorage['configuration']){
@@ -135,20 +137,43 @@ function jsls(){
 
 let inputfocus = true;
 
+function keycode(e){
+	console.log(e)
+	let w = e.target["nodeName"]
+	if(w == "BODY"){
+		if(e.ctrlKey == true){
+			switch(e.key){
+				case 'Tab':
+					if(parm_open){
+						parm()
+					}else{
+						parm(1)
+					}
+					break;
+			}
+		}else{
+			switch(e.key){
+				default:
+					if(e.key.length == 1){
+						if(inputfocus){
+							document.getElementById("sc").focus()
+							document.getElementById("sc").value += e.key
+						}
+					}
+					break;
+			}
+		}
+	}
+}
+
 function gclick(){
 	document.getElementById("add-ele").onclick = function (){addele()}
 	document.getElementById("open").onclick = function (){parm(1)}
 	document.getElementById("pclose").onclick = function (){parm()}
-	document.getElementById("update-but").onclick = function (){}
+//	document.getElementById("update-but").onclick = function (){}
 	document.getElementById("sci").onclick = function (){search()}
 	document.getElementById("sc").onkeyup = function (){sckup(event)}
-	document.body.onkeyup = function (){
-		if(inputfocus){
-			document.getElementById("sc").focus()
-		}else{
-			inputfocus = true
-		}
-	}
+	document.body.onkeyup = function (){keycode(event)}
 }
 
 let charge_bar_on = 1
@@ -194,9 +219,6 @@ function sckup(e){
 		a = document.getElementById("sc").value
 		xhr too the google api "https://www.google.com/complete/search?q="+input+"&client=gws-wiz&xssi=t&pq="+input
 		*/
-	}
-	if(inputfocus == true){
-		inputfocus = false
 	}
 }
 
@@ -264,9 +286,11 @@ function parm(a,b){
 	}else{
 		let p = document.getElementById('parm').style
 		if(a == 1){
+			parm_open = true
 			p.opacity = "1"
 			p.visibility = "visible"
 		}else{
+			parm_open = false
 			p.opacity = "0"
 			window.setTimeout(function(){
 				p.visibility = "hidden"
