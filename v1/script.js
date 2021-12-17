@@ -2,38 +2,44 @@ console.log("programe start")
 
 const page = {
 	"index":'<div id="quick-bar">'+
-		'		<div id="ele"></div>'+
-		'		<div style="height:30px;"></div>'+
-		'		<div id="add-ele" class="quick-ele">'+
-		'			<svg class="cross" xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 0 24 24" width="40px" fill="#FFFFFF"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>'+
-		'		</div>'+
+		'	<div id="ele"></div>'+
+		'	<div style="height:30px;"></div>'+
+		'	<div id="add-ele" class="quick-ele">'+
+		'		<svg class="cross" xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 0 24 24" width="40px" fill="#FFFFFF"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>'+
 		'	</div>'+
-		'	<div class="chear">'+
-		'		<select id="sct">'+
-		'		</select>'+
-		'		<input id="sc" placeholder="search on google" type="search"/>'+
-		'		<svg id="sci" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="20px" width="20px" fill="#FFF"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8z"/></svg>'+
+		'</div>'+
+		'<div class="chear">'+
+		'	<select id="sct">'+
+		'	</select>'+
+		'	<input id="sc" placeholder="search on google" type="search"/>'+
+		'	<svg id="sci" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="20px" width="20px" fill="#FFF"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8z"/></svg>'+
+		'</div>'+
+		'<svg id="open" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFF"><path d="M19.43 12.98c.04-.32.07-.64.07-.98 0-.34-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.09-.16-.26-.25-.44-.25-.06 0-.12.01-.17.03l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.06-.02-.12-.03-.18-.03-.17 0-.34.09-.43.25l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98 0 .33.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.09.16.26.25.44.25.06 0 .12-.01.17-.03l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.06.02.12.03.18.03.17 0 .34-.09.43-.25l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zm-1.98-1.71c.04.31.05.52.05.73 0 .21-.02.43-.05.73l-.14 1.13.89.7 1.08.84-.7 1.21-1.27-.51-1.04-.42-.9.68c-.43.32-.84.56-1.25.73l-1.06.43-.16 1.13-.2 1.35h-1.4l-.19-1.35-.16-1.13-1.06-.43c-.43-.18-.83-.41-1.23-.71l-.91-.7-1.06.43-1.27.51-.7-1.21 1.08-.84.89-.7-.14-1.13c-.03-.31-.05-.54-.05-.74s.02-.43.05-.73l.14-1.13-.89-.7-1.08-.84.7-1.21 1.27.51 1.04.42.9-.68c.43-.32.84-.56 1.25-.73l1.06-.43.16-1.13.2-1.35h1.39l.19 1.35.16 1.13 1.06.43c.43.18.83.41 1.23.71l.91.7 1.06-.43 1.27-.51.7 1.21-1.07.85-.89.7.14 1.13zM12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 6c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>'+
+		'<div id="parm">'+
+		'	<div class="close">'+
+		'		<span id="pclose">close</span>'+
 		'	</div>'+
-		'	<svg id="open" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFF"><path d="M19.43 12.98c.04-.32.07-.64.07-.98 0-.34-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.09-.16-.26-.25-.44-.25-.06 0-.12.01-.17.03l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.06-.02-.12-.03-.18-.03-.17 0-.34.09-.43.25l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98 0 .33.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.09.16.26.25.44.25.06 0 .12-.01.17-.03l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.06.02.12.03.18.03.17 0 .34-.09.43-.25l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zm-1.98-1.71c.04.31.05.52.05.73 0 .21-.02.43-.05.73l-.14 1.13.89.7 1.08.84-.7 1.21-1.27-.51-1.04-.42-.9.68c-.43.32-.84.56-1.25.73l-1.06.43-.16 1.13-.2 1.35h-1.4l-.19-1.35-.16-1.13-1.06-.43c-.43-.18-.83-.41-1.23-.71l-.91-.7-1.06.43-1.27.51-.7-1.21 1.08-.84.89-.7-.14-1.13c-.03-.31-.05-.54-.05-.74s.02-.43.05-.73l.14-1.13-.89-.7-1.08-.84.7-1.21 1.27.51 1.04.42.9-.68c.43-.32.84-.56 1.25-.73l1.06-.43.16-1.13.2-1.35h1.39l.19 1.35.16 1.13 1.06.43c.43.18.83.41 1.23.71l.91.7 1.06-.43 1.27-.51.7 1.21-1.07.85-.89.7.14 1.13zM12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 6c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>'+
-		'	<div id="parm">'+
-		'		<div class="close">'+
-		'			<span id="pclose">close</span>'+
-		'		</div>'+
-		'		<div class="in">'+
-		'			<div id="conf" class="confn"></div><br/>'+
-//		'			<button id="update-but">update</button>'+
-		'		</div>'+
-		'		<div class="fhr"></div>'+
-		'		<div id="more"></div>'+
+		'	<div class="in">'+
+		'		<div id="conf" class="confn"></div><br/>'+
+//		'		<button id="update-but">update</button>'+
 		'	</div>'+
-		'	<div id="popup"></div>',
+		'	<div class="fhr"></div>'+
+		'	<div id="more"></div>'+
+		'</div>'+
+		'<div id="popup"></div>'+
+		'<div align="center" id="inner_task"></div>',
+// parm
 	"parm":'<a id="back">index</a>'+
 		'<div id="pselector">'+
 		'	<div>'+
-		'		<img src="https://google.com/favicon.ico">'+
 		'		<span>général</span>'+
 		'	</div>'+
-		'</div>'
+		'	<div>'+
+		'		<span>dev</span>'+
+		'	</div>'+
+		'</div>'+
+		'<div id="pin"></div>'+
+		'<div id="log"></div>'
 }
 
 /*lib*/
@@ -113,32 +119,47 @@ const dconfig = {
 		},
 		"select":"google"
 	},
-	"more":{
-		// "more parameter":{
-			// "name":"more parameter",
-			// "fun":"mp()"
-		// }
-	}
+	"task":[]
+}
+var more = {
+	/* "more parameter":{
+		"name":"more parameter",
+		"fun":"mp()"
+	} */
 }
 
 let parm_open = false;
 
 let config;
-
 if(localStorage['configuration']){
 	config = JSON.parse(localStorage['configuration'])
 }else{
 	config = dconfig
 }
 
+let ddata = {
+	"last_modif":0
+}
+
+let data;
+if(localStorage['data']){
+	data = JSON.parse(localStorage['data'])
+}else{
+	data = ddata
+}
+
+
 function jsls(){
-	localStorage['configuration'] = JSON.stringify(config)
+	if(localStorage['configuration'] != JSON.stringify(config)){
+		localStorage['configuration'] = JSON.stringify(config)
+		data["last_modif"] = Date.now()
+		localStorage['data'] = JSON.stringify(data)
+	}
 }
 
 let inputfocus = true;
 
 function keycode(e){
-	console.log(e)
 	let w = e.target["nodeName"]
 	if(w == "BODY"){
 		if(e.ctrlKey == true){
@@ -301,8 +322,8 @@ function parm(a,b){
 
 function moreparm_g(){
 	document.getElementById("more").innerHTML = ""
-	findex(config["more"]).forEach(element => {
-		document.getElementById("more").innerHTML += '<a onclick="'+config["more"][element]["fun"]+'">'+config["more"][element]["name"]+'</a>'
+	findex(more).forEach(element => {
+		document.getElementById("more").innerHTML += '<a onclick="'+more[element]["fun"]+'">'+more[element]["name"]+'</a>'
 	})
 	return true
 }
@@ -393,12 +414,143 @@ function quick_bar_d(id){
 	quick_bar_g()
 }
 
+/* task */
+
+function tskon(){
+	if(config["parm"]["task-on"] == false){}
+}
+
+var task = {
+	"conf":{
+		"v":1
+	},
+	"task":config.task,
+	"delete":function(taskc){
+		let result;
+		if(this.task[taskc]){
+			result = this.task.splice(taskc,1)
+		}else{
+			result = false
+		}
+		return result
+	},
+	"add":function(name){
+		let result;
+		if(name == null){
+			result = false
+		}else{
+			result = this.task.push({"name":name,"status":0})-1
+		}
+		return result
+	},
+	"modify":function(taskc, name){
+		let result;
+		if(this.task[taskc]){
+			if(name != ''){
+				this.task[taskc] = {"name":name,"status":this.task[taskc]["status"]}
+				result = name
+			}else{
+				result = false
+			}
+		}else{
+				result = false
+		}
+		return result
+	},
+	"status":function(taskc, status){
+		let result;
+		if(this.task[taskc]){
+			if(status != null){
+				this.task[taskc]["status"] = status
+				result = this.task[taskc]["status"]
+			}else{
+				result = "a"
+			}
+		}else{
+			result = false
+		}
+		return result
+	}
+}
+
+function generatetask(){
+	document.getElementById("inner_task").innerHTML = '<div id="task"></div>'+
+	'<div id="add" onclick="addtask()" align="center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 13h-5v5c0 .55-.45 1-1 1s-1-.45-1-1v-5H6c-.55 0-1-.45-1-1s.45-1 1-1h5V6c0-.55.45-1 1-1s1 .45 1 1v5h5c.55 0 1 .45 1 1s-.45 1-1 1z"/></svg></div>'
+	let i = 0
+	let b = document.getElementById("task")
+	for (let element in task["task"]) {
+		let a = task["task"][element]
+		let s = '<svg onclick="deltask('+i+')" id="del" xmlns="http://www.w3.org/2000/svg"><path d="m13,2l-12,0c-0.55,0 -1,-0.45 -1,-1s0.45,-1 1,-1l12,0c0.55,0 1,0.45 1,1s-0.45,1 -1,1z"></path></svg>'
+		let n = 1;
+		let c = ""
+		if(task["task"][element]["status"] == 1){
+			n = 0;
+			c = "checked"
+		}
+		b.innerHTML += '<div>'+
+'	<div type="button" onclick="task.status('+i+','+n+');generatetask()" class="checkbox '+c+'"></div>'+s+
+'	<div onclick="mtask('+i+')" class="in" id="task_'+i+'">'+task["task"][element]["name"]+'</div>'+
+'</div>';
+		i++
+	}
+	jsls()
+	return i
+}
+
+
+function mtask(n){
+	generatetask()
+	document.getElementById('task_'+n).innerHTML = '<input id="task_modif" value="'+task["task"][n]["name"]+'" onKeyUp="if(event.key == \'Enter\'){task.modify('+n+',document.getElementById(\'task_modif\').value);generatetask()}"/>'
+	let inp = document.getElementById('task_modif')
+	inp.onblur = function(){task.modify(n,document.getElementById('task_modif').value);generatetask()}
+	inp.focus()
+	l = inp.value.length
+	inp.setSelectionRange(0, l)
+}
+
+function addtask(){
+	let a = task.add("new")
+	generatetask()
+	mtask(a)
+}
+
+function deltask(n){
+	task.delete(n)
+	generatetask()
+}
+
+function sycro(type){
+	let xhr = new XMLHttpRequest()
+	xhr.open("POST", "http://localhost:8081/nt.php?s="+type+"&t="+Date.now(), true);
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xhr.onreadystatechange = function () {
+		if(xhr.readyState === 4 && xhr.status === 200) {
+			console.log(Date.now() - t)
+			let rep;
+			try{
+				rep = JSON.parse(xhr.responseText)
+			} catch {
+				rep = false
+			}
+			if(rep != false){
+				if(rep["config"]){
+					if(rep["data"]["last_modif"] > data["last_modif"]){
+						localStorage['configuration'] = rep["config"]
+					}
+				}
+			}
+		}
+	}
+	let t = Date.now()
+	xhr.send("f="+localStorage['configuration']+"&t="+data["last_modif"])
+}
+
 /* dev function */
 function dvon(){
 	if(config["parm"]["dev-mode"]){
-		config["more"]["resets configuration"] = {"name":"resets configuration","fun":"reac()"}
+		more["resets configuration"] = {"name":"resets configuration","fun":"reac()"}
 	}else{
-		delete config["more"]["resets configuration"]
+		delete more["resets configuration"]
 	}
 	moreparm_g()
 	jsls()
@@ -414,10 +566,12 @@ function gall(){
 	parm_g()
 	chec_parm()
 	g_search_type()
+	generatetask()
 }
 
 function pr(){
 	document.getElementById("innerpage").innerHTML = page["index"]
+	location.hash = '#'
 	gclick()
 	gall()
 }
