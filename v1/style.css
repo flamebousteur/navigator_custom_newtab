@@ -77,10 +77,12 @@ body{
 	border-radius:50%;
 	cursor:pointer;
 	transition:background-color, 0.1s;
+	transition: transform 0.1s;
 }
 
 #add-ele:hover > .cross{
 	background-color:#FFF6;
+	transform:scale(1.1);
 }
 
 .qbm{
@@ -89,10 +91,12 @@ body{
 	background-color:#777;
 	border-radius:10px 10px 0px 0px;
 	cursor:pointer;
+	transition: transform 0.1s;
 }
 
 .qbm:hover{
 	background-color:#666;
+	transform:scale(1.05);
 }
 
 .qbd{
@@ -103,10 +107,12 @@ body{
 	background-color:#777;
 	border-radius:0px 0px 10px 10px;
 	cursor:pointer;
+	transition: transform 0.1s;
 }
 
 .qbd:hover{
 	background-color:#666;
+	transform:scale(1.05);
 }
 
 
@@ -165,11 +171,12 @@ body{
 	background-color:#FFF3;
 	border:1px solid #FFF0;
 	border-radius:25%;
-	transition:background-color, 0.1s;
+	transition:all, 0.1s;
 }
 
 .chear > svg:hover{
 	background-color:#FFF6;
+	transform:scale(1.05);
 }
 
 .chear > img{
@@ -221,11 +228,13 @@ body{
 	border:1px solid #3b3b3b;
 	border-radius:40px;
 	color:white;
+	transition: transform 0.1s;
 }
 
 #parm > .in > button:hover{
 	background-color:#444;
 	border:1px solid #444;
+	transform:scale(1.05);
 }
 
 #parm > .in > .confn > .input{
@@ -237,11 +246,13 @@ body{
 	border:1px solid #3b3b3b;
 	cursor:pointer;
 	border-radius:40px;
+	transition: transform 0.1s;
 }
 
 #parm > .in > .confn > .input:hover{
 	background-color:#444;
 	border:1px solid #444;
+	transform:scale(1.1);
 }
 
 #parm > .in > .confn > .input-chec{
@@ -290,6 +301,11 @@ body{
 #parm > .close{
 	margin:5px 10px;
 	padding:4px;
+	transition: transform 0.1s;
+}
+
+#parm > .close:hover{
+	transform:scale(1.025);
 }
 
 #parm > .close > span{
@@ -312,10 +328,12 @@ body{
 	right:5px;
 	background-color:#FFF0;
 	border-radius:5px;
+	transition: transform 0.1s;
 }
 
 #open:hover{
 	background-color:#FFF3;
+	transform:scale(1.05);
 }
 
 
@@ -374,10 +392,12 @@ body{
 	padding:5px;
 	width:50px;
 	color:white;
+	transition: transform 0.1s;
 }
 
 #popup > #close:hover{
 	background-color:#FFF6;
+	transform:scale(1.05);
 }
 
 #popup > #ok{
@@ -391,6 +411,7 @@ body{
 
 #popup > #ok:hover{
 	background-color:#FFF6;
+	transform:scale(1.05);
 
 }
 
@@ -408,31 +429,55 @@ body{
 
 #pselector{
 	position: absolute;
-	width: 25%;
+	width:250px;
 	background-color: #2e2e2e;
 	top: 50px;
 	right: 0px;
 	bottom: 10px;
 	left: 10px;
-	z-index: 1;
 	border: 2px solid #555;
 	border-radius: 10px;
+	z-index:3;
+}
+
+#pin{
+	position: absolute;
+	background-color: #2e2e2e;
+	top: 50px;
+	right: 10px;
+	bottom: 10px;
+	left: 275px;
+	border: 2px solid #555;
+	border-radius: 10px;
+	z-index:2;
+}
+
+#log{
+	position: absolute;
+	background-color: #2e2e2e;
+	height: 32px;
+	top: 8px;
+	right: 10px;
+	left: 70px;
+	border: 2px solid #555;
+	border-radius: 10px;
+	z-index:1;
 }
 
 #pselector > div{
-	border-bottom: 2px solid #555;
-	padding: 1px;
-}
-
-#pselector > div > img{
-	height: 25px;border-radius: 10px 0 0 10px;
-}
-
-#pselector > div > span{
+	padding:5px 0;
+	margin:10px 0;
+	width:250px;
 	background-color: #444;
-	border-radius: 0 10px 10px 0;
-	padding: 5px;
-	position: absolute;
+}
+
+#pselector > div span{
+	transition: all 0.5s;
+  padding-left: 3px;
+}
+
+#pselector > div:hover span{
+	padding-left: 7px;
 }
 
 #charge_bar{
@@ -446,4 +491,115 @@ body{
 	background: linear-gradient(to right,#222,#444,#222);
 	transition: background 1s;
 	visibility: hidden;
+}
+
+/*task*/
+
+#inner_task{
+	position:absolute;
+	margin:auto;
+	left:0;
+	right:0;
+	width:60%;
+}
+
+#task{
+	background-color:#222;
+	border-radius:5px;
+	text-align:center;
+	color:white;
+	padding:2.5px;
+	transition:all 0.5s;
+	width:100%;
+}
+
+#task div .in:after{
+  content: linear-gradient(#111, #111);
+}
+
+#task div .in{
+	text-overflow: " ...";
+	overflow: hidden;
+	margin:auto;
+	width:50%;
+	height:18px;
+	background-color:#FFF0;
+	border-radius:5px;
+	transition:all 0.1s;
+}
+
+#task div .in:hover{
+	transform:scale(1.05);
+	background-color:#FFF5;
+	cursor:pointer;
+}
+
+#task div .in input{
+	margin:auto;
+	width:75%;
+	height:13px;
+	background-color:#FFF0;
+	border-radius:1px;
+	border:1px solid #FFF0;
+	transition:all 0.2s;
+	text-align:center;
+	color:white;
+	outline: none;
+}
+
+#task div .checkbox{
+	width:13px;
+	height:13px;
+	position:absolute;
+	margin:3px auto auto auto;
+	left:25px;
+	background-color:#df1616;
+	border-radius:100%;
+	transition: all 0.25s;
+}
+
+#task div .checkbox:hover{
+	transform:scale(1.2);
+	cursor:pointer;
+}
+
+#task div .checked{
+	background-color:#16ab16;
+}
+
+#task div #del{
+	fill:#fff;
+	width:15px;
+	height:1px;
+	padding:3px;
+	position:absolute;
+	margin: 5px auto auto auto;
+	right:25px;
+	transition: background-color 0.25s;
+	z-index:2;
+	background-color:#fff5;
+	border-radius:10px;
+	transition:all 0.25s;
+}
+
+#task div #del:hover{
+	transform:scale(1.3);
+	cursor:pointer;
+}
+
+#task div span #task_modif{
+	border:1px solid #444;
+}
+
+#add svg{
+	fill:#000;
+	width:30px;
+	height:30px;
+	transition: all 0.5s cubic-bezier(.18,.89,.32,1.1);
+	transform: rotate(0turn);
+}
+
+#add svg:hover{
+	transform: rotate(0.25turn);
+	cursor:pointer;
 }
