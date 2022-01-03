@@ -22,24 +22,22 @@ const page = {
 		'	<div class="in">'+
 		'		<div id="conf" class="confn"></div><br/>'+
 //		'		<button id="update-but">update</button>'+
+		'		<button onclick="mp()">parameter</button>'+
 		'	</div>'+
 		'	<div class="fhr"></div>'+
-		'	<div id="more"></div>'+
 		'</div>'+
 		'<div id="popup"></div>'+
 		'<div align="center" id="inner_task"></div>',
 // parm
-	"parm":'<a id="back">index</a>'+
-		'<div id="pselector">'+
-		'	<div>'+
-		'		<span>général</span>'+
-		'	</div>'+
-		'	<div>'+
-		'		<span>dev</span>'+
-		'	</div>'+
-		'</div>'+
-		'<div id="pin"></div>'+
-		'<div id="log"></div>'
+	"parm":{
+		"index":'<a id="back">index</a>'+
+			'<div id="pselector"></div>'+
+			'<div id="pin"></div>'+
+			'<div id="page"></div>',
+		"general":'',
+		"display":'',
+		"dev":""
+	}
 }
 
 /*lib*/
@@ -120,12 +118,6 @@ const dconfig = {
 		"select":"google"
 	},
 	"task":[]
-}
-var more = {
-	/* "more parameter":{
-		"name":"more parameter",
-		"fun":"mp()"
-	} */
 }
 
 let parm_open = false;
@@ -271,7 +263,6 @@ function g_search_type(){
 /* parameter */
 function chec_parm(){
 	qbon()
-	dvon()
 }
 
 function parm_g(){
@@ -320,18 +311,24 @@ function parm(a,b){
 	}
 }
 
-function moreparm_g(){
-	document.getElementById("more").innerHTML = ""
-	findex(more).forEach(element => {
-		document.getElementById("more").innerHTML += '<a onclick="'+more[element]["fun"]+'">'+more[element]["name"]+'</a>'
-	})
-	return true
+function openparm(p){
+	document.getElementById("pin").innerHTML = page["parm"][p]
+	document.getElementById("page").innerHTML = "<span>"+p+"</span>"
 }
 
 function mp(){
-	document.getElementById("innerpage").innerHTML = page["parm"]
+	let pag = ["general","display"]
+	document.getElementById("innerpage").innerHTML = page["parm"]["index"]
+	let sel = document.getElementById("pselector")
 	history.pushState("", "", "#parm")
 	document.getElementById("back").onclick = function (){pr()}
+	pag.forEach(element =>{
+		sel.innerHTML += '<div onclick="openparm(\''+element+'\')"><span>'+element+'</span></div>'
+	})
+	if(config["parm"]["dev-mode"] == true){
+		sel.innerHTML += '<div onclick="openparm(\'dev\')"><span>dev</span></div>'
+	}
+	openparm('general')
 }
 
 /*quick_bar*/
@@ -546,16 +543,6 @@ function sycro(type){
 }
 
 /* dev function */
-function dvon(){
-	if(config["parm"]["dev-mode"]){
-		more["resets configuration"] = {"name":"resets configuration","fun":"reac()"}
-	}else{
-		delete more["resets configuration"]
-	}
-	moreparm_g()
-	jsls()
-}
-
 function reac(){
 	config = dconfig
 	jsls()
