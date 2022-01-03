@@ -60,6 +60,7 @@ body{
 .quick-ele > .text{
 	color:white;
 }
+
 .quick-ele:hover > .text{
 	text-decoration:underline;
 }
@@ -294,8 +295,6 @@ body{
 	width:90%;
 	height:1px;
 	background:linear-gradient(to right,#2e2e2e,#444,#2e2e2e);
-	transition:background 1s;
-	background-position: calc(100% + 10px);
 }
 
 #parm > .close{
@@ -438,6 +437,8 @@ body{
 	border: 2px solid #555;
 	border-radius: 10px;
 	z-index:3;
+	color:#fff;
+	font:message-box;
 }
 
 #pin{
@@ -452,7 +453,7 @@ body{
 	z-index:2;
 }
 
-#log{
+#page{
 	position: absolute;
 	background-color: #2e2e2e;
 	height: 32px;
@@ -462,7 +463,24 @@ body{
 	border: 2px solid #555;
 	border-radius: 10px;
 	z-index:1;
+	text-align:center;
 }
+
+#page span{
+	color:#fff;
+	font:message-box;
+	font-size: 20px;
+}
+
+/*#page span::before{
+  content:"";
+  background-image: url('https://google.com/favicon.ico');
+  background-size: 10px;
+	background-repeat: no-repeat;
+  display: inline-block;
+  width: 15px;
+  height: 10px;
+}*/
 
 #pselector > div{
 	padding:5px 0;
@@ -511,10 +529,6 @@ body{
 	padding:2.5px;
 	transition:all 0.5s;
 	width:100%;
-}
-
-#task div .in:after{
-  content: linear-gradient(#111, #111);
 }
 
 #task div .in{
