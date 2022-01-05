@@ -493,11 +493,10 @@ var task = {
 	"conf":{
 		"v":1
 	},
-	"task":config.task,
 	"delete":function(taskc){
 		let result;
-		if(this.task[taskc]){
-			result = this.task.splice(taskc,1)
+		if(config.task[taskc]){
+			result = config.task.splice(taskc,1)
 		}else{
 			result = false
 		}
@@ -508,15 +507,15 @@ var task = {
 		if(name == null){
 			result = false
 		}else{
-			result = this.task.push({"name":name,"status":0})-1
+			result = config.task.push({"name":name,"status":0})-1
 		}
 		return result
 	},
 	"modify":function(taskc, name){
 		let result;
-		if(this.task[taskc]){
+		if(config.task[taskc]){
 			if(name != ''){
-				this.task[taskc] = {"name":name,"status":this.task[taskc]["status"]}
+				config.task[taskc] = {"name":name,"status":config.task[taskc]["status"]}
 				result = name
 			}else{
 				result = false
@@ -528,10 +527,10 @@ var task = {
 	},
 	"status":function(taskc, status){
 		let result;
-		if(this.task[taskc]){
+		if(config.task[taskc]){
 			if(status != null){
-				this.task[taskc]["status"] = status
-				result = this.task[taskc]["status"]
+				config.task[taskc]["status"] = status
+				result = config.task[taskc]["status"]
 			}else{
 				result = "a"
 			}
@@ -547,21 +546,22 @@ function generatetask(){
 	'<div id="add" onclick="addtask()" align="center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 13h-5v5c0 .55-.45 1-1 1s-1-.45-1-1v-5H6c-.55 0-1-.45-1-1s.45-1 1-1h5V6c0-.55.45-1 1-1s1 .45 1 1v5h5c.55 0 1 .45 1 1s-.45 1-1 1z"/></svg></div>'
 	let i = 0
 	let b = document.getElementById("task")
-	for (let element in task["task"]) {
-		let a = task["task"][element]
+	for (let element in config.task) {
+		let a = config.task[element]
 		let s = '<svg onclick="deltask('+i+')" id="del" xmlns="http://www.w3.org/2000/svg"><path d="m13,2l-12,0c-0.55,0 -1,-0.45 -1,-1s0.45,-1 1,-1l12,0c0.55,0 1,0.45 1,1s-0.45,1 -1,1z"></path></svg>'
 		let n = 1;
 		let c = ""
-		if(task["task"][element]["status"] == 1){
+		if(config.task[element]["status"] == 1){
 			n = 0;
 			c = "checked"
 		}
 		b.innerHTML += '<div>'+
 '	<div type="button" onclick="task.status('+i+','+n+');generatetask()" class="checkbox '+c+'"></div>'+s+
-'	<div onclick="mtask('+i+')" class="in" id="task_'+i+'">'+task["task"][element]["name"]+'</div>'+
+'	<div onclick="mtask('+i+')" class="in" id="task_'+i+'">'+config.task[element]["name"]+'</div>'+
 '</div>';
 		i++
 	}
+	console.log("ok")
 	jsls()
 	return i
 }
@@ -569,7 +569,7 @@ function generatetask(){
 
 function mtask(n){
 	generatetask()
-	document.getElementById('task_'+n).innerHTML = '<input id="task_modif" value="'+task["task"][n]["name"]+'" onKeyUp="if(event.key == \'Enter\'){task.modify('+n+',document.getElementById(\'task_modif\').value);generatetask()}"/>'
+	document.getElementById('task_'+n).innerHTML = '<input id="task_modif" value="'+config.task[n]["name"]+'" onKeyUp="if(event.key == \'Enter\'){task.modify('+n+',document.getElementById(\'task_modif\').value);generatetask()}"/>'
 	let inp = document.getElementById('task_modif')
 	inp.onblur = function(){task.modify(n,document.getElementById('task_modif').value);generatetask()}
 	inp.focus()
@@ -675,10 +675,10 @@ function reac(){
 }
 function gall(){
 	quick_bar_g()
+	generatetask()
 	parm_g()
 	chec_parm()
 	g_search_type()
-	generatetask()
 }
 
 function pr(){
