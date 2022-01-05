@@ -361,7 +361,7 @@ function parm(a,b){
 			cn.className = "input"
 			config["parm"][b] = false
 		}
-		if(location.hash == "#"){
+		if(location.hash == ""){
 			quick_bar_g()
 			chec_parm()
 		}
