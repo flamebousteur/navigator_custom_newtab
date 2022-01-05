@@ -441,6 +441,25 @@ body{
 	font:message-box;
 }
 
+#pselector > div{
+	cursor: pointer;
+	padding:5px 0;
+	margin:10px 0;
+	width:200px;
+	background-color: #444;
+	border-right:1px solid #FFF6;
+	border-radius:0px 10px 10px 0px;
+}
+
+#pselector > div span{
+	transition: all 0.15s;
+  padding-left: 3px;
+}
+
+#pselector > div:hover span{
+	padding-left: 7px;
+}
+
 #pin{
 	position: absolute;
 	background-color: #2e2e2e;
@@ -450,7 +469,101 @@ body{
 	left: 275px;
 	border: 2px solid #555;
 	border-radius: 10px;
+	padding:10px;
 	z-index:2;
+}
+
+#pin .input{
+	display: block;
+	margin:-26.5px 10px 3px auto;
+	width:25px;
+	height:15px;
+	background-color:#3b3b3b;
+	border:1px solid #3b3b3b;
+	cursor:pointer;
+	border-radius:40px;
+	transition: transform 0.1s;
+}
+
+#pin .input{
+	display: block;
+	margin:-26.5px 10px 3px auto;
+	width:25px;
+	height:15px;
+	background-color:#3b3b3b;
+	border:1px solid #3b3b3b;
+	cursor:pointer;
+	border-radius:40px;
+	transition: transform 0.1s;
+}
+
+#pin .input:hover{
+	background-color:#444;
+	border:1px solid #444;
+	transform:scale(1.1);
+}
+
+#pin .input-chec{
+	background-color:#35C;
+	border:1px solid #35C;
+}
+
+#pin .input-chec:hover{
+	background-color:#57E;
+	border:1px solid #57E;
+}
+
+#pin .inin .inin{
+	width:10px;
+	height:10px;
+	background-color:#222;
+	border-radius:40px;
+	margin:2px;
+	margin-left: 1px;
+	transition:margin-left 0.5s, margin-right 0.5s;
+}
+
+#pin .input-chec .inin{
+	margin-left:14px;
+	margin-right:1px;
+}
+
+#pin input[type=text]{
+	padding:1px;
+	padding-left: 10px;
+	background-color:#3f3f3f;
+	border:none;
+	border-radius:10px;
+	width:200px;
+	height:25px;
+	color:white;
+}
+
+#pin button{
+	margin-left: 5px;
+	padding:1px 10px;
+	background-color:#FFF4;
+	border:none;
+	border-radius:10px;
+	height:25px;
+	color:white;
+  transition:all 0.05s;
+	cursor: pointer;
+}
+
+
+#pin button:hover{
+	transform:scale(1.05);
+}
+
+#pin button:active{
+	transform:scale(0.95);
+}
+
+#pin span{
+	color:white;
+	margin: auto 10px 10px;
+	display: block;
 }
 
 #page{
@@ -474,29 +587,13 @@ body{
 
 /*#page span::before{
   content:"";
-  background-image: url('https://google.com/favicon.ico');
+  background-image: url();
   background-size: 10px;
 	background-repeat: no-repeat;
   display: inline-block;
   width: 15px;
   height: 10px;
 }*/
-
-#pselector > div{
-	padding:5px 0;
-	margin:10px 0;
-	width:250px;
-	background-color: #444;
-}
-
-#pselector > div span{
-	transition: all 0.5s;
-  padding-left: 3px;
-}
-
-#pselector > div:hover span{
-	padding-left: 7px;
-}
 
 #charge_bar{
 	position: absolute;
@@ -616,4 +713,37 @@ body{
 #add svg:hover{
 	transform: rotate(0.25turn);
 	cursor:pointer;
+}
+
+/*log*/
+#clog{
+  position: absolute;
+	bottom: 0px;
+	right: 0px;
+	margin: 10px;
+	padding: 5px;
+	border-radius: 10px;
+	color:white;
+	background-color:#333;
+	z-index:4;
+}
+
+.clog{
+	margin-bottom: 5px;
+	padding: 5px 25px;
+	border-radius: 10px;
+	color:white;
+	background-color:#fff4;
+}
+
+.lognormal{
+  background-color:#fff3;
+}
+
+.logalert{
+	background-color:#f553;
+}
+
+.logwarn{
+	background-color:#ff03;
 }
