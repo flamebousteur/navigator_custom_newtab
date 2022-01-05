@@ -125,10 +125,11 @@ function msg(txt,time){
 	}
 }
 
-var log = []
+var log = "";
 const clog = {
 	"add":function(text,cn){
-		log.push(text)
+		a = new Date()
+		log += "["+a.getDate()+"/"+a.getMonth()+1+"/"+a.getFullYear()+" "+a.getHours()+":"+a.getMinutes()+":"+a.getSeconds()+"]: "+text+"\n"
 		let logele = document.createElement("div")
 		let tele = document.createElement("span")
 		tele.innerHTML = text
@@ -140,11 +141,19 @@ const clog = {
 			document.body.appendChild(ele)
 		}
 		document.getElementById("clog").appendChild(logele)
+		window.setTimeout(function(){
+			logele.style.opacity = "0"
+			window.setTimeout(function(){
+				logele.remove()
+			},1000)
+		},1000)
 	},
 	"clear":function(){
 		document.getElementById("clog").innerHTML = ""
 	}
 }
+
+
 
 /*end lib*/
 
@@ -561,7 +570,6 @@ function generatetask(){
 '</div>';
 		i++
 	}
-	console.log("ok")
 	jsls()
 	return i
 }
