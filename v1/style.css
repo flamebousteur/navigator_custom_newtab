@@ -731,6 +731,7 @@ body{
 	padding: 5px 25px;
 	border-radius: 10px;
 	background-color:#5c5c5c;
+	transition: opacity 1s;
 }
 
 .lognormal{
