@@ -141,10 +141,11 @@ const clog = {
 		}
 		document.getElementById("clog").appendChild(logele)
 	},
-	"del":function(){
-		document.getElementById("clog").removeChild()
+	"clear":function(){
+		document.getElementById("clog").innerHTML = ""
 	}
 }
+
 /*end lib*/
 
 const dconfig = {
@@ -590,7 +591,7 @@ function deltask(n){
 function syncro(type){
 	if(config["parm"]["syncro"] == true){
 		let ready = false
-		clog("configuration of synchronization","lognormal")
+		clog.add("configuration of synchronization","lognormal")
 		let xhr = new XMLHttpRequest()
 		if(config["parm"]["dev-mode"] == true){
 			if(config["syncro"]["dev"] != ""){
@@ -600,31 +601,30 @@ function syncro(type){
 				xhr.open("POST", config["syncro"]["def"]+"?s="+type+"&t="+Date.now(), true);
 				ready = true
 			}else{
-				console.log("server not set")
 				ready = false
-				clog("server not set","logwarn")
+				clog.add("server not set","logwarn")
 			}
 		}else{
 			if(config["syncro"]["def"] != ""){
 				xhr.open("POST", config["syncro"]["def"]+"?s="+type+"&t="+Date.now(), true);
 				ready = true
 			}else{
-				console.log("server not set")
 				ready = false
-				clog("server not set","logwarn")
+				clog.add("server not set","logwarn")
 			}
 		}
 		if(ready == true){
+			clog.add("configuration of synchronization ok","logok")
 			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			xhr.onreadystatechange = function () {
 				if(xhr.readyState === 4){
 					let st = xhr.status.toString()
 					if(st.startsWith(4)){
-						console.log("client problème "+xhr.status)
+						clog.add("client problème "+xhr.status,"logalert")
 					}else if(st.startsWith(5)) {
-						console.log("server problème "+xhr.status)
+						clog.add("server problème "+xhr.status,"logalert")
 					}else{
-						console.log(Date.now() - t)
+						let lantence = Date.now() - t
 						let rep;
 						try{
 							rep = JSON.parse(xhr.responseText)
@@ -636,27 +636,26 @@ function syncro(type){
 								if(rep["data"]["last_modif"] > data["last_modif"]){
 									localStorage['configuration'] = rep["config"]
 									config = JSON.parse(rep["config"])
+									clog.add("update","lognormal")
 									if(location.hash == "#parm"){
 										mp()
 									}else{
 										pr()
-										console.log("ok")
 									}
 								}
 							}
 							if(rep["status"].toString().startsWith(2)){
-								console.log("no problème")
+								clog.add("status: "+rep["status"]+", "+rep["more"],"logok")
 							}else{
-								console.log("a problème as occurrence")
+								clog.add("status: "+rep["status"]+", "+rep["more"],"logalert")
 							}
-							console.log("status: "+rep["status"]+", more: "+rep["more"])
 						}else{
-							console.log("a server problème as occurrence")
+							clog.add("server error","logalert")
 						}
 					}
 				}
 			}
-			clog("synchronization","lognormal")
+			clog.add("synchronization","lognormal")
 			let t;
 			if(type == "out"){
 				t = Date.now()
@@ -690,8 +689,8 @@ function pr(){
 }
 
 window.onload = function(){
+	clog.add("starting programme","lognormal")
 	syncro("out")
-	clog("starting programme","lognormal")
 	if(location.hash == "#parm"){
 		mp()
 	}else{
