@@ -720,11 +720,9 @@ body{
   position: absolute;
 	bottom: 0px;
 	right: 0px;
-	margin: 10px;
 	padding: 5px;
 	border-radius: 10px;
 	color:white;
-	background-color:#333;
 	z-index:4;
 }
 
@@ -732,18 +730,21 @@ body{
 	margin-bottom: 5px;
 	padding: 5px 25px;
 	border-radius: 10px;
-	color:white;
-	background-color:#fff4;
+	background-color:#5c5c5c;
 }
 
 .lognormal{
-  background-color:#fff3;
+  background-color:#5c5c5c;
 }
 
-.logalert{
-	background-color:#f553;
+.logok{
+	background-color:#295c29;
 }
 
 .logwarn{
-	background-color:#ff03;
+	background-color:#5c5c29;
+}
+
+.logalert{
+	background-color:#773b3b;
 }
