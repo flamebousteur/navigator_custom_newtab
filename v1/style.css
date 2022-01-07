@@ -53,7 +53,7 @@ body{
 	background-color:#FFF4;
 }
 
-.void{
+#ele .void{
 	height:10px;
 }
 
@@ -414,9 +414,7 @@ body{
 
 }
 
-
 /*more parameter*/
-
 #back{
 	padding: 10px;
 	background-color: #777;
@@ -540,7 +538,6 @@ body{
 }
 
 #pin button{
-	margin-left: 5px;
 	padding:1px 10px;
 	background-color:#FFF4;
 	border:none;
@@ -566,6 +563,11 @@ body{
 	display: block;
 }
 
+#pin .voidw{
+	display: inline-block;
+	width: 10px;
+}
+
 #page{
 	position: absolute;
 	background-color: #2e2e2e;
@@ -585,31 +587,7 @@ body{
 	font-size: 20px;
 }
 
-/*#page span::before{
-  content:"";
-  background-image: url();
-  background-size: 10px;
-	background-repeat: no-repeat;
-  display: inline-block;
-  width: 15px;
-  height: 10px;
-}*/
-
-#charge_bar{
-	position: absolute;
-	width: 100%;
-	height: 3px;
-	margin: auto;
-	top: 0;
-	right: 0;
-	left: 0;
-	background: linear-gradient(to right,#222,#444,#222);
-	transition: background 1s;
-	visibility: hidden;
-}
-
 /*task*/
-
 #inner_task{
 	position:absolute;
 	margin:auto;
@@ -748,4 +726,18 @@ body{
 
 .logalert{
 	background-color:#773b3b;
+}
+
+/*autre*/
+#charge_bar{
+	position: absolute;
+	width: 100%;
+	height: 3px;
+	margin: auto;
+	top: 0;
+	right: 0;
+	left: 0;
+	background: linear-gradient(to right,#222,#444,#222);
+	transition: background 1s;
+	visibility: hidden;
 }
