@@ -39,11 +39,22 @@ const page = {
 			"eval":function(){}
 		},
 		"display":{
-			"in":'',
-			"eval":function(){}
+			"in":'<span>quick-bar-on</span><div onclick="parm(2,\'quick-bar-on\');page.parm.display.eval();" id="quick-bar-on" class="input"><div class="inin"></div></div>'+
+			'<span>task-on</span><div onclick="parm(2,\'task-on\');page.parm.display.eval();" id="task-on" class="input"><div class="inin"></div></div>',
+			"eval":function(){
+				let a = ["quick-bar-on","task-on"]
+				a.forEach(element => {
+					let cn = document.getElementById(element)
+					if(config["parm"][element] === true){
+						cn.className = "input-chec input"
+					}else{
+						cn.className = "input"
+					}
+				})
+			}
 		},
 		"synchronization":{
-			"in":'<span>private server</span><div onclick="parm(2,\'syncro\');page.parm.synchronization.eval();" id="syncro" class="input"><div class="inin"></div></div><input id="input1" placeholder="http://example.com/sync.php" type="text"><button id="input2">save</button>',
+			"in":'<span>private server</span><div onclick="parm(2,\'syncro\');page.parm.synchronization.eval();" id="syncro" class="input"><div class="inin"></div></div><input id="input1" placeholder="http://example.com/sync.php" type="text"><div class="voidw"></div><button id="input2">save</button>',
 			"eval":function(){
 				document.getElementById('input1').value = config['syncro']['def']
 				document.getElementById('input2').onclick = function(){
@@ -63,7 +74,8 @@ const page = {
 			}
 		},
 		"dev":{
-			"in":'<span>synchronization server</span><input id="input1" placeholder="http://example.com/sync.php" type="text"><button id="input2">save</button>',
+			"in":'<span>synchronization server</span><input id="input1" placeholder="http://example.com/sync.php" type="text"><div class="voidw"></div><button id="input2">save</button>'+
+			'<br><br><button class="alert" onclick="reac()">reset configuration</button>',
 			"eval":function(){
 				document.getElementById('input1').value = config['syncro']['dev']
 				document.getElementById('input2').onclick = function(){
@@ -160,20 +172,16 @@ const clog = {
 const dconfig = {
 	"parm":{
 		"quick-bar-on":true,
+		"task-on":true,
 //		"auto-update":true,
-		"dev-mode":false,
-		"syncro":false
+		"syncro":false,
+		"dev-mode":false
 	},
 	"quick-bar-list":{
 		1:{
 			"title":"flamebousteur web-site",
 			"img":"https://flamebousteur.github.io/favicon.ico",
 			"url":"https://flamebousteur.github.io/"
-		},
-		2:{
-			"title":"google",
-			"img":"https://www.google.com/favicon.ico",
-			"url":"https://google.com"
 		}
 	},
 	"search":{
@@ -341,6 +349,7 @@ function g_search_type(){
 /* parameter */
 function chec_parm(){
 	qbon()
+	tskon()
 }
 
 function parm_g(){
@@ -495,7 +504,11 @@ function quick_bar_d(id){
 /* task */
 
 function tskon(){
-	if(config["parm"]["task-on"] == false){}
+	if(config["parm"]["task-on"] == false){
+		document.getElementById("inner_task").style.visibility = "hidden"
+	}else{
+		document.getElementById("inner_task").style.visibility = "visible"
+	}
 }
 
 var task = {
@@ -680,6 +693,7 @@ function syncro(type){
 function reac(){
 	config = dconfig
 	jsls()
+	pr()
 }
 function gall(){
 	quick_bar_g()
