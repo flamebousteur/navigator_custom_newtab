@@ -639,39 +639,40 @@ function syncro(type){
 			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			xhr.onreadystatechange = function () {
 				if(xhr.readyState === 4){
-					let st = xhr.status.toString()
-					if(st.startsWith(4)){
-						clog.add("client problème "+xhr.status,"logalert")
-					}else if(st.startsWith(5)) {
-						clog.add("server problème "+xhr.status,"logalert")
+					if(xhr.status == 0){
+						clog.add("sommething bad append","logalert")
 					}else{
 						let lantence = Date.now() - t
 						let rep;
-						try{
-							rep = JSON.parse(xhr.responseText)
-						} catch {
-							rep = false
-						}
-						if(rep != false){
-							if(rep["config"]){
-								if(rep["data"]["last_modif"] > data["last_modif"]){
-									localStorage['configuration'] = rep["config"]
-									config = JSON.parse(rep["config"])
-									clog.add("update","lognormal")
-									if(location.hash == "#parm"){
-										mp()
-									}else{
-										pr()
+						if(xhr.responseText){
+							try{
+								rep = JSON.parse(xhr.responseText)
+							} catch {
+								rep = false
+							}
+							if(rep != false){
+								if(rep["config"]){
+									if(rep["data"]["last_modif"] > data["last_modif"]){
+										localStorage['configuration'] = rep["config"]
+										config = JSON.parse(rep["config"])
+										clog.add("update","lognormal")
+										if(location.hash == "#parm"){
+											mp()
+										}else{
+											pr()
+										}
 									}
 								}
-							}
-							if(rep["status"].toString().startsWith(2)){
-								clog.add("status: "+rep["status"]+", "+rep["more"],"logok")
+								if(rep["status"].toString().startsWith(2)){
+									clog.add("status: "+rep["status"]+", "+rep["more"],"logok")
+								}else{
+									clog.add("status: "+rep["status"]+", "+rep["more"],"logalert")
+								}
 							}else{
-								clog.add("status: "+rep["status"]+", "+rep["more"],"logalert")
+								clog.add("server error","logalert")
 							}
 						}else{
-							clog.add("server error","logalert")
+							clog.add("response empty","logalert")
 						}
 					}
 				}
@@ -680,7 +681,7 @@ function syncro(type){
 			let t;
 			if(type == "out"){
 				t = Date.now()
-				xhr.send("f="+localStorage['configuration']+"&t="+data["last_modif"])
+				xhr.send()
 			}else if(type == "in"){
 				t = Date.now()
 				xhr.send("f="+localStorage['configuration']+"&t="+data["last_modif"])
