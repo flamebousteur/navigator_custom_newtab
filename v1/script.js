@@ -196,7 +196,7 @@ const dconfig = {
 				"url":"https://github.com/search?q="
 			}
 		},
-		"select":"google"
+		"sselect":"google"
 	},
 	"task":[],
 	"syncro":{
@@ -339,7 +339,7 @@ function g_search_type(){
 	sct.innerHTML = ''
 	for(element in config["search"]["type"]){
 		let selected = ""
-		if(element == config["search"]["select"]){
+		if(element == config["search"]["sselect"]){
 			selected = "selected"
 		}
 		sct.innerHTML += '<option '+selected+' value="'+config["search"]["type"][element]["url"]+'">'+element+'</option>'
