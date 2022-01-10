@@ -91,6 +91,9 @@ const page = {
 				}
 			}
 		}
+	},
+	"advanced":{
+		"log":'<pre id="log"></pre><input placeholder="value" id="in1"><input placeholder="comment" id="in2"><input type="button" value="->" id="in3">'
 	}
 }
 /*lib*/
@@ -137,16 +140,42 @@ function msg(txt,time){
 	}
 }
 
-var log = "";
 const clog = {
-	"add":function(text,cn){
+	"log":"",
+	"add":function(text,cn,comment){
+		let c;
+		if(comment){
+			c = " : "+comment
+		}else{
+			comment = ""
+			c = ""
+		}
 		a = new Date()
-		log += "["+a.getDate()+"/"+a.getMonth()+1+"/"+a.getFullYear()+" "+a.getHours()+":"+a.getMinutes()+":"+a.getSeconds()+"]: "+text+"\n"
+		this.log += "["+a.getDate()+"/"+a.getMonth()+1+"/"+a.getFullYear()+" "+a.getHours()+":"+a.getMinutes()+":"+a.getSeconds()+"]: "+text+c+"\n"
 		let logele = document.createElement("div")
 		let tele = document.createElement("span")
 		tele.innerHTML = text
 		logele.appendChild(tele)
 		logele.className = "clog "+cn
+		logele.onclick = function(){
+			let ele;
+			if(!document.getElementById("clogpopup")){
+				ele = document.createElement("div")
+				ele.id = "clogpopup"
+				document.body.appendChild(ele)
+			}else{
+				ele = document.getElementById("clogpopup")
+			}
+			ele.innerHTML = text+":<br>"+comment
+			let xele = document.createElement("div")
+			xele.innerHTML = "close"
+			xele.onclick = function(){
+				ele.style.visibility = "hidden"
+				ele.innerHTML = ""
+			}
+			ele.appendChild(xele)
+			ele.style.visibility = "visible"
+		}
 		if(!document.getElementById("clog")){
 			let ele = document.createElement("div")
 			ele.id = "clog"
@@ -161,10 +190,10 @@ const clog = {
 		},1000)
 	},
 	"clear":function(){
+		this.log = ""
 		document.getElementById("clog").innerHTML = ""
 	}
 }
-
 
 
 /*end lib*/
@@ -339,7 +368,7 @@ function g_search_type(){
 	sct.innerHTML = ''
 	for(element in config["search"]["type"]){
 		let selected = ""
-		if(element == config["search"]["sselect"]){
+		if(element == config["search"]["selects"]){
 			selected = "selected"
 		}
 		sct.innerHTML += '<option '+selected+' value="'+config["search"]["type"][element]["url"]+'">'+element+'</option>'
@@ -612,14 +641,14 @@ function deltask(n){
 function syncro(type){
 	if(config["parm"]["syncro"] == true){
 		let ready = false
-		clog.add("configuration of synchronization","lognormal")
 		let xhr = new XMLHttpRequest()
+		let url;
 		if(config["parm"]["dev-mode"] == true){
 			if(config["syncro"]["dev"] != ""){
-				xhr.open("POST", config["syncro"]["dev"]+"?s="+type+"&t="+Date.now(), true);
+				url = config["syncro"]["dev"]+"?s="+type+"&t="+Date.now()
 				ready = true
 			}else if(config["syncro"]["def"] != ""){
-				xhr.open("POST", config["syncro"]["def"]+"?s="+type+"&t="+Date.now(), true);
+				url = config["syncro"]["def"]+"?s="+type+"&t="+Date.now()
 				ready = true
 			}else{
 				ready = false
@@ -627,7 +656,7 @@ function syncro(type){
 			}
 		}else{
 			if(config["syncro"]["def"] != ""){
-				xhr.open("POST", config["syncro"]["def"]+"?s="+type+"&t="+Date.now(), true);
+				url = config["syncro"]["def"]+"?s="+type+"&t="+Date.now()
 				ready = true
 			}else{
 				ready = false
@@ -635,7 +664,7 @@ function syncro(type){
 			}
 		}
 		if(ready == true){
-			clog.add("configuration of synchronization ok","logok")
+			xhr.open("POST", url, true);
 			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			xhr.onreadystatechange = function () {
 				if(xhr.readyState === 4){
@@ -645,6 +674,7 @@ function syncro(type){
 						let lantence = Date.now() - t
 						let rep;
 						if(xhr.responseText){
+							clog.add("xhr reponse","lognormal","rep: "+xhr.responseText)
 							try{
 								rep = JSON.parse(xhr.responseText)
 							} catch {
@@ -655,7 +685,7 @@ function syncro(type){
 									if(rep["data"]["last_modif"] > data["last_modif"]){
 										localStorage['configuration'] = rep["config"]
 										config = JSON.parse(rep["config"])
-										clog.add("update","lognormal")
+										clog.add("update","lognormal","new configuration: "+rep["config"])
 										if(location.hash == "#parm"){
 											mp()
 										}else{
@@ -677,7 +707,7 @@ function syncro(type){
 					}
 				}
 			}
-			clog.add("synchronization","lognormal")
+			clog.add("synchronization","lognormal","url: "+url)
 			let t;
 			if(type == "out"){
 				t = Date.now()
@@ -686,7 +716,12 @@ function syncro(type){
 				t = Date.now()
 				xhr.send("f="+localStorage['configuration']+"&t="+data["last_modif"])
 			}
+			return true
+		}else{
+			return false
 		}
+	}else{
+		return false
 	}
 }
 
@@ -696,6 +731,7 @@ function reac(){
 	jsls()
 	pr()
 }
+
 function gall(){
 	quick_bar_g()
 	generatetask()
@@ -712,15 +748,22 @@ function pr(){
 }
 
 window.onload = function(){
-	clog.add("starting programme","lognormal")
+	clog.add("starting programme","lognormal","charge page: "+location.hash)
 	syncro("out")
-	if(location.hash == "#parm"){
+	let p = location.hash
+	if(p == "#parm"){
 		mp()
+	}else if(p == "#log"){
+		document.getElementById("innerpage").innerHTML = page["advanced"]["log"]
+		document.getElementById("in3").onclick = function(){
+			clog.add(document.getElementById("in1").value,"lognormal",document.getElementById("in2").value)
+		}
+		function a(){
+			document.getElementById("log").innerHTML = clog.log
+			window.setTimeout(a,1000)
+		}
+		a()
 	}else{
 		pr()
 	}
-}
-
-window.onbeforeunload = function(){
-	syncro("in")
 }
