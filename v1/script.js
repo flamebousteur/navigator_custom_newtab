@@ -75,7 +75,7 @@ const page = {
 		},
 		"dev":{
 			"in":'<span>synchronization server</span><input id="input1" placeholder="http://example.com/sync.php" type="text"><div class="voidw"></div><button id="input2">save</button>'+
-			'<br><br><button class="alert" onclick="reac()">reset configuration</button>',
+			'<br><br><button class="alert" onclick="reac()">reset configuration</button><br><button onclick="storage()">storage</button>',
 			"eval":function(){
 				document.getElementById('input1').value = config['syncro']['dev']
 				document.getElementById('input2').onclick = function(){
@@ -93,7 +93,8 @@ const page = {
 		}
 	},
 	"advanced":{
-		"log":'<pre id="log"></pre><input placeholder="value" id="in1"><input placeholder="comment" id="in2"><input type="button" value="->" id="in3">'
+		"log":'<pre id="log"></pre><input placeholder="value" id="in1"><input placeholder="comment" id="in2"><input type="button" value="->" id="in3">',
+		"storage":'<a onclick="pr()" id="back">index</a><div id="pselector"></div><div id="pin"></div><div id="page"></div>'
 	}
 }
 /*lib*/
@@ -204,6 +205,7 @@ const dconfig = {
 		"task-on":true,
 //		"auto-update":true,
 		"syncro":false,
+		"advanced-storage":false,
 		"dev-mode":false
 	},
 	"quick-bar-list":{
@@ -686,11 +688,7 @@ function syncro(type){
 										localStorage['configuration'] = rep["config"]
 										config = JSON.parse(rep["config"])
 										clog.add("update","lognormal","new configuration: "+rep["config"])
-										if(location.hash == "#parm"){
-											mp()
-										}else{
-											pr()
-										}
+										cpage()
 									}
 								}
 								if(rep["status"].toString().startsWith(2)){
@@ -725,6 +723,233 @@ function syncro(type){
 	}
 }
 
+/* storage */
+var fs = {
+	"file":{},
+	"data":{},
+	"add":function(name,cont,ourl,mime){
+		if(name){
+			if(cont){
+				localStorage.setItem("./"+name,""+cont)
+			}
+			this.file[name] = {"original name":name}
+			if(ourl){
+				this.file[name]["original url"] = ourl
+			}
+			if(mime){
+				this.file[name]["MIME"] = mime
+			}else{
+				this.file[name]["MIME"] = "text/plain"
+			}
+			localStorage["index"] = JSON.stringify(this.file)
+			return true
+		}else{
+			return false
+		}
+	},
+	"remove":function(file){
+		if(this.file[file]){
+			if(localStorage.getItem("./"+file)){
+				localStorage.removeItem("./"+file)
+			}
+			delete this.file[file]
+			localStorage["index"] = JSON.stringify(this.file)
+			return true
+		}else{
+			return false
+		}
+	},
+	"modify":function(file,cont,force){
+		if(localStorage.getItem("./"+file)){
+			if(this.file[file]){
+				localStorage.setItem("./"+file,cont)
+				return true
+			}else{
+				return false
+			}
+		}else{
+			if(force != false){
+				return this.add(file,cont)
+			}else{
+				return false
+			}
+		}
+	},
+	"rename":function(file,name){
+		if(this.file[file]){
+			if(this.file[name]){
+				return false
+			}else{
+				this.file[name] = this.file[file]
+				this.remove(file)
+				if(localStorage.getItem("./"+file)){
+					localStorage.setItem("./"+name,localStorage.getItem("./"+file))
+					localStorage.remove("./"+file)
+				}
+				return true
+			}
+			return false
+		}else{
+			return false
+		}
+	},
+	"getFile":function(file){
+		if(localStorage.getItem("./"+file)){
+			return localStorage.getItem("./"+file)
+		}
+	},
+	"setMime":function(file,mime){
+		if(localStorage.getItem("./"+file)){
+			if(this.file[file]){
+				this.file[file]["mime"] = ""+mime
+				localStorage["index"] = JSON.stringify(this.file)
+				return true
+			}else{
+				return false
+			}
+		}else{
+			return false
+		}
+	},
+	"update":function(file,url){
+		if(this.file[file]){
+			let xhr = new XMLHttpRequest()
+			if(!url){
+				if(this.file[file]["original url"]){
+					xhr.open("GET", this.file[file]["original url"], true)
+				}else{
+					return false
+				}
+			}else{
+				xhr.open("GET", url, true)
+			}
+			xhr.onreadystatechange = function () {
+				if(xhr.readyState === 4 && xhr.status !== 400){
+					localStorage.setItem("./"+file,xhr.responseText)
+				}
+			}
+			xhr.send()
+		}else{
+			return false
+		}
+	},
+	"getUrl":function(file){
+		if(this.file[file]){
+			if(this.data[file]){
+				if(this.data[file]["url"]){
+					return this.data[file]["url"]
+				}else{
+					let url;
+					if(localStorage.getItem("./"+file)){
+						let b = new Blob([localStorage.getItem("./"+file)],{type : this.file[file]["MIME"]})
+						url = window.URL.createObjectURL(b);
+					}else if(this.file[file]["original url"]){
+						url = this.file[file]["original url"]
+					}
+					this.data[file] = {"url":url}
+					return url
+				}
+			}else{
+				let url;
+				if(localStorage.getItem("./"+file)){
+					let b = new Blob([localStorage.getItem("./"+file)],{type : this.file[file]["MIME"]})
+					url = window.URL.createObjectURL(b);
+					this.data[file] = {"url":url}
+					return url
+				}else if(this.file[file]["original url"]){
+					url = this.file[file]["original url"]
+					this.data[file] = {"url":url}
+					return url
+				}else{
+					return false
+				}
+			}
+		}else{
+			return false
+		}
+	},
+	"vertion":0
+}
+if(localStorage["index"]){
+	fs.file = JSON.parse(localStorage["index"])
+}else{
+	fs.file = {}
+}
+
+function editfile(f){
+	document.getElementById('innerfile').innerHTML = '<textarea id="in_file">'+localStorage[f]+'</textarea><button onclick="localStorage[\''+f+'\'] = document.getElementById(\'in_file\').value;storage()">save</button>'
+}
+
+function openfile(file,original){
+	document.getElementById("innerfile").innerHTML = localStorage[file]
+	document.getElementById("file").innerHTML = file
+	if(!config.parm["advanced-storage"]){
+		let act = "";
+		if(fs.data[original]){
+			if(fs.data[original]["url"]){
+				act += '<button onclick="window.open(\''+fs.data[original]["url"]+'\',\'_blank\')">open url</button>'
+			}
+		}
+		if(original){
+			act += '<button onclick="fs.remove(\''+original+'\');storage()">delete</button>'
+		}
+		act += '<button onclick="editfile(\''+file+'\')">edit</button>'
+		act += '<input value="'+original+'" id="inp1">'
+		document.getElementById("action").innerHTML = act
+		document.getElementById("inp1").onkeyup = function(){
+			if(event.key == "Enter"){
+				if(document.getElementById('inp1').value){
+					fs.rename(original,document.getElementById('inp1').value)
+					storage()
+				}
+			}
+		}
+	}
+}
+
+function storage(){
+	document.getElementById("innerpage").innerHTML = page["advanced"]["storage"]
+	document.getElementById("pin").style.backgroundColor = "white"
+	document.getElementById("pin").innerHTML = '<div id="action"></div><div id="innerfile"></div>'
+	document.getElementById("page").innerHTML = '<span id="file">storage</span><div onclick="parm(2,\'advanced-storage\');storage()" id="advanced-storage" class="input"><div class="inin"></div></div>'
+	let a = ["advanced-storage"]
+	a.forEach(element => {
+		let cn = document.getElementById(element)
+		if(config["parm"][element] === true){
+			cn.className = "input-chec input"
+		}else{
+			cn.className = "input"
+		}
+	})
+	let allfiles;
+	if(config.parm["advanced-storage"]){
+		allfiles = Object.keys(localStorage)
+	}else{
+		allfiles = findex(fs.file)
+	}
+	allfiles.forEach(function(element){
+		let ele = document.createElement("div")
+		ele.innerHTML = element
+		ele.onclick = function(){
+			let a = element
+			if(!config.parm["advanced-storage"]){
+				a = "./"+element
+			}
+			openfile(a,element)
+		}
+		document.getElementById("pselector").appendChild(ele)
+	})
+	if(!config.parm["advanced-storage"]){
+		let ele = document.createElement("div")
+		ele.innerHTML = "--add new file--"
+		ele.onclick = function(){
+			fs.add("unname")
+			storage()
+		}
+		document.getElementById("pselector").appendChild(ele)
+	}
+}
+
 /* dev function */
 function reac(){
 	config = dconfig
@@ -740,6 +965,18 @@ function gall(){
 	g_search_type()
 }
 
+function logpage(){
+	document.getElementById("innerpage").innerHTML = page["advanced"]["log"]
+	document.getElementById("in3").onclick = function(){
+		clog.add(document.getElementById("in1").value,"lognormal",document.getElementById("in2").value)
+	}
+	function a(){
+		document.getElementById("log").innerHTML = clog.log
+		window.setTimeout(a,1000)
+	}
+	a()
+}
+
 function pr(){
 	document.getElementById("innerpage").innerHTML = page["index"]
 	location.hash = '#'
@@ -747,23 +984,21 @@ function pr(){
 	gall()
 }
 
-window.onload = function(){
-	clog.add("starting programme","lognormal","charge page: "+location.hash)
-	syncro("out")
+function cpage(){
 	let p = location.hash
 	if(p == "#parm"){
 		mp()
 	}else if(p == "#log"){
-		document.getElementById("innerpage").innerHTML = page["advanced"]["log"]
-		document.getElementById("in3").onclick = function(){
-			clog.add(document.getElementById("in1").value,"lognormal",document.getElementById("in2").value)
-		}
-		function a(){
-			document.getElementById("log").innerHTML = clog.log
-			window.setTimeout(a,1000)
-		}
-		a()
+		logpage()
+	}else if(p == "#storage"){
+		storage()
 	}else{
 		pr()
 	}
+}
+
+window.onload = function(){
+	clog.add("starting programme","lognormal","charge page: "+location.hash)
+	syncro("out")
+	cpage()
 }
