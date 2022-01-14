@@ -238,7 +238,7 @@ body{
 	transform:scale(1.05);
 }
 
-#parm > .in > .confn > .input{
+.input{
 	display: block;
 	margin:-26.5px 10px 3px auto;
 	width:25px;
@@ -250,23 +250,23 @@ body{
 	transition: transform 0.1s;
 }
 
-#parm > .in > .confn > .input:hover{
+.input:hover{
 	background-color:#444;
 	border:1px solid #444;
 	transform:scale(1.1);
 }
 
-#parm > .in > .confn > .input-chec{
+.input-chec{
 	background-color:#35C;
 	border:1px solid #35C;
 }
 
-#parm > .in > .confn > .input-chec:hover{
+.input-chec:hover{
 	background-color:#57E;
 	border:1px solid #57E;
 }
 
-.inin{
+.input > .inin{
 	width:10px;
 	height:10px;
 	background-color:#222;
@@ -276,7 +276,7 @@ body{
 	transition:margin-left 0.5s, margin-right 0.5s;
 }
 
-#parm > .in > .confn > .input-chec > .inin{
+.input-chec > .inin{
 	margin-left:14px;
 	margin-right:1px;
 }
@@ -587,6 +587,15 @@ body{
 	font-size: 20px;
 }
 
+#page .input:before{
+	color:#fff;
+	position: absolute;
+	content: attr(id);
+	font-size: 12px;
+	right: 40px;
+	margin-top: -2px;
+}
+
 /*task*/
 #inner_task{
 	position:absolute;
@@ -748,12 +757,27 @@ body{
 	right:10px;
 }
 
-/*log pag*/
+/*autre*/
 #log{
 	color:white;
 }
 
-/*autre*/
+#action button{
+	background-color:#3b3b3b;
+	border:1px solid #3b3b3b;
+	border-radius:40px;
+	color:white;
+}
+
+#pin #innerfile #in_file{
+	width: 99%;
+	height: 99%;
+}
+
+#pin #innerfile button{
+	background-color: #444;
+}
+
 #charge_bar{
 	position: absolute;
 	width: 100%;
