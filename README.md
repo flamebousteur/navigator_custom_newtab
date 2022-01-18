@@ -9,7 +9,8 @@ actual:
 - dev log
 
 in futur:
-- use the google auto-complete api for search input
-- update
+- mobile version
+- google auto-complete api for search input
+- auto update
 - message
 - news
