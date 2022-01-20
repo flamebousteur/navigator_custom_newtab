@@ -1,0 +1,31 @@
+{
+	"name":"New Tab manager",
+	"short_name":"NT Manager",
+	"start_url":"/index.html",
+	"background_color":"#444",
+	"theme_color":"black",
+	"orientation": "portrait-primary",
+	"display": "standalone",
+	"icons":[
+		{
+			"src": "icon180.png",
+			"sizes": "180x180",
+			"type": "image/png"
+		},
+		{
+			"src": "icon128.png",
+			"sizes": "128x128",
+			"type": "image/png"
+		},
+		{
+			"src": "favicon.png",
+			"sizes": "256x256",
+			"type": "image/png"
+		},
+		{
+			"src": "icon512.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		}
+	]
+}
