@@ -97,6 +97,7 @@ const page = {
 		"storage":'<a onclick="pr()" id="back">index</a><div id="pselector"></div><div id="pin"></div><div id="page"></div>'
 	}
 }
+
 /*lib*/
 function findex(list) {
 	let result = [];
@@ -195,8 +196,6 @@ const clog = {
 		document.getElementById("clog").innerHTML = ""
 	}
 }
-
-
 /*end lib*/
 
 const dconfig = {
@@ -287,7 +286,6 @@ function keycode(e){
 					if(e.key.length == 1){
 						if(inputfocus){
 							document.getElementById("sc").focus()
-							document.getElementById("sc").value += e.key
 						}
 					}
 					break;
@@ -303,7 +301,7 @@ function gclick(){
 //	document.getElementById("update-but").onclick = function (){}
 	document.getElementById("sci").onclick = function (){search()}
 	document.getElementById("sc").onkeyup = function (){sckup(event)}
-	document.body.onkeyup = function (){keycode(event)}
+	document.body.onkeydown = function (){keycode(event)}
 }
 
 let charge_bar_on = 1
@@ -639,6 +637,7 @@ function deltask(n){
 	task.delete(n)
 	generatetask()
 }
+/*end task*/
 
 function syncro(type){
 	if(config["parm"]["syncro"] == true){
