@@ -23,6 +23,7 @@ const page = {
 		'		<div id="conf" class="confn"></div><br/>'+
 //		'		<button id="update-but">update</button>'+
 		'		<button onclick="mp()">parameter</button>'+
+		'		<button onclick="storage()">storage</button>'+
 		'	</div>'+
 		'	<div class="fhr"></div>'+
 		'</div>'+
@@ -154,42 +155,44 @@ const clog = {
 		}
 		a = new Date()
 		this.log += "["+a.getDate()+"/"+a.getMonth()+1+"/"+a.getFullYear()+" "+a.getHours()+":"+a.getMinutes()+":"+a.getSeconds()+"]: "+text+c+"\n"
-		let logele = document.createElement("div")
-		let tele = document.createElement("span")
-		tele.innerHTML = text
-		logele.appendChild(tele)
-		logele.className = "clog "+cn
-		logele.onclick = function(){
-			let ele;
-			if(!document.getElementById("clogpopup")){
-				ele = document.createElement("div")
-				ele.id = "clogpopup"
+		if(config["parm"]["dev-mode"] == true){
+			let logele = document.createElement("div")
+			let tele = document.createElement("span")
+			tele.innerHTML = text
+			logele.appendChild(tele)
+			logele.className = "clog "+cn
+			logele.onclick = function(){
+				let ele;
+				if(!document.getElementById("clogpopup")){
+					ele = document.createElement("div")
+					ele.id = "clogpopup"
+					document.body.appendChild(ele)
+				}else{
+					ele = document.getElementById("clogpopup")
+				}
+				ele.innerHTML = text+":<br>"+comment
+				let xele = document.createElement("div")
+				xele.innerHTML = "close"
+				xele.onclick = function(){
+					ele.style.visibility = "hidden"
+					ele.innerHTML = ""
+				}
+				ele.appendChild(xele)
+				ele.style.visibility = "visible"
+			}
+			if(!document.getElementById("clog")){
+				let ele = document.createElement("div")
+				ele.id = "clog"
 				document.body.appendChild(ele)
-			}else{
-				ele = document.getElementById("clogpopup")
 			}
-			ele.innerHTML = text+":<br>"+comment
-			let xele = document.createElement("div")
-			xele.innerHTML = "close"
-			xele.onclick = function(){
-				ele.style.visibility = "hidden"
-				ele.innerHTML = ""
-			}
-			ele.appendChild(xele)
-			ele.style.visibility = "visible"
-		}
-		if(!document.getElementById("clog")){
-			let ele = document.createElement("div")
-			ele.id = "clog"
-			document.body.appendChild(ele)
-		}
-		document.getElementById("clog").appendChild(logele)
-		window.setTimeout(function(){
-			logele.style.opacity = "0"
+			document.getElementById("clog").appendChild(logele)
 			window.setTimeout(function(){
-				logele.remove()
+				logele.style.opacity = "0"
+				window.setTimeout(function(){
+					logele.remove()
+				},1000)
 			},1000)
-		},1000)
+		}
 	},
 	"clear":function(){
 		this.log = ""
@@ -436,7 +439,8 @@ function chec_parm(){
 function parm_g(){
 	let cnf = document.getElementById("conf")
 	cnf.innerHTML = ""
-	for(element in config["parm"]){
+	let pag = ["quick-bar-on","task-on","syncro","dev-mode"]
+	pag.forEach(element => {
 		cnf.innerHTML += '<span>'+element+'</span>'+
 '<div onclick="parm(2,\''+element+'\')" id="'+element+'">'+
 '	<div class="inin"></div>'+
@@ -447,7 +451,7 @@ function parm_g(){
 		}else{
 			cn.className = "input"
 		}
-	}
+	})
 }
 
 function parm(a,b){
@@ -693,6 +697,11 @@ function deltask(n){
 
 function syncro(type){
 	if(config["parm"]["syncro"] == true){
+		let ele = document.createElement("div")
+		ele.className = "sync"
+		ele.style.opacity = "1"
+		document.body.appendChild(ele)
+		ele.innerHTML = "<span>synchronization</span>"
 		let ready = false
 		let xhr = new XMLHttpRequest()
 		let url;
@@ -706,6 +715,7 @@ function syncro(type){
 			}else{
 				ready = false
 				clog.add("server not set","logwarn")
+				ele.style.borderBottomColor= "#AA0"
 			}
 		}else{
 			if(config["syncro"]["def"] != ""){
@@ -714,6 +724,7 @@ function syncro(type){
 			}else{
 				ready = false
 				clog.add("server not set","logwarn")
+				ele.style.borderBottomColor= "#AA0"
 			}
 		}
 		if(ready == true){
@@ -723,6 +734,7 @@ function syncro(type){
 				if(xhr.readyState === 4){
 					if(xhr.status == 0){
 						clog.add("sommething bad append","logalert")
+						ele.style.borderBottomColor= "#A00"
 					}else{
 						let lantence = Date.now() - t
 						let rep;
@@ -735,26 +747,40 @@ function syncro(type){
 							}
 							if(rep != false){
 								if(rep["config"]){
-									if(rep["data"]["last_modif"] > data["last_modif"]){
-										localStorage['configuration'] = rep["config"]
-										config = JSON.parse(rep["config"])
-										clog.add("update","lognormal","new configuration: "+rep["config"])
-										cpage()
+									if(localStorage['configuration'] != rep["config"]){
+										if(rep["data"]["last_modif"] > data["last_modif"]){
+											localStorage['configuration'] = rep["config"]
+											config = JSON.parse(rep["config"])
+											clog.add("update","lognormal","new configuration: "+rep["config"])
+											cpage()
+										}else{
+											syncro('in')
+										}
 									}
 								}
 								if(rep["status"].toString().startsWith(2)){
 									clog.add("status: "+rep["status"]+", "+rep["more"],"logok")
+									ele.style.borderBottomColor= "#0A0"
 								}else{
 									clog.add("status: "+rep["status"]+", "+rep["more"],"logalert")
+									ele.style.borderBottomColor= "#A00"
 								}
 							}else{
 								clog.add("server error","logalert")
+								ele.style.borderBottomColor= "#A00"
 							}
 						}else{
 							clog.add("response empty","logalert")
+							ele.style.borderBottomColor= "#A00"
 						}
 					}
 				}
+				window.setTimeout(function(){
+					ele.style.opacity = "0"
+					window.setTimeout(function(){
+						ele.remove()
+					},1000)
+				},1000)
 			}
 			clog.add("synchronization","lognormal","url: "+url)
 			let t;
@@ -767,6 +793,12 @@ function syncro(type){
 			}
 			return true
 		}else{
+			window.setTimeout(function(){
+				ele.style.opacity = "0"
+				window.setTimeout(function(){
+					ele.remove()
+				},1000)
+			},500)
 			return false
 		}
 	}else{
@@ -962,8 +994,13 @@ function storage(){
 	document.getElementById("innerpage").innerHTML = page["advanced"]["storage"]
 	document.getElementById("pin").style.backgroundColor = "white"
 	document.getElementById("pin").innerHTML = '<div id="action"></div><div id="innerfile"></div>'
-	document.getElementById("page").innerHTML = '<span id="file">storage</span><div onclick="parm(2,\'advanced-storage\');storage()" id="advanced-storage" class="input"><div class="inin"></div></div>'
-	let a = ["advanced-storage"]
+	document.getElementById("page").innerHTML = '<span id="file">storage</span>'
+	let a = []
+	if(config.parm["dev-mode"] == true){
+		document.getElementById("page").innerHTML += '<div onclick="parm(2,\'advanced-storage\');storage()" id="advanced-storage" class="input"><div class="inin"></div></div>'
+		a.push("advanced-storage")
+		console.log("ok")
+	}
 	a.forEach(element => {
 		let cn = document.getElementById(element)
 		if(config["parm"][element] === true){
