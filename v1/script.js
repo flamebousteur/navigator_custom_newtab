@@ -26,6 +26,7 @@ const page = {
 		'		<button onclick="storage()">storage</button>'+
 		'	</div>'+
 		'	<div class="fhr"></div>'+
+		'	<a href="https://github.com/flamebousteur/navigator_custom_newtab/">github</a>'+
 		'</div>'+
 		'<div id="popup"></div>'+
 		'<div align="center" id="inner_task"></div>',
