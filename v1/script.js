@@ -952,6 +952,28 @@ var fs = {
 			return false
 		}
 	},
+	"dowload":function(url,file){
+		if(this.file[file]){
+			return false
+		}else{
+			if(url){
+				let xhr = new XMLHttpRequest()
+				xhr.open("GET", url, true)
+				xhr.onreadystatechange = function () {
+					if(xhr.readyState === 4 && xhr.status !== 400){
+						if(file){
+							if(xhr.responseText){
+								localStorage.setItem("./"+file,xhr.responseText)
+							}
+						}
+					}
+				}
+				xhr.send()
+			}else{
+				return false
+			}
+		}
+	},
 	"vertion":0
 }
 if(localStorage["index"]){
