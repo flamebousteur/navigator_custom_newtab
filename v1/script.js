@@ -47,7 +47,7 @@ const page = {
 				let a = ["quick-bar-on","task-on"]
 				a.forEach(element => {
 					let cn = document.getElementById(element)
-					if(config["parm"][element] === true){
+					if(parameter[element] === true){
 						cn.className = "input-chec input"
 					}else{
 						cn.className = "input"
@@ -58,15 +58,15 @@ const page = {
 		"synchronization":{
 			"in":'<span>private server</span><div onclick="parm(2,\'syncro\');page.parm.synchronization.eval();" id="syncro" class="input"><div class="inin"></div></div><input id="input1" placeholder="http://example.com/sync.php" type="text"><div class="voidw"></div><button id="input2">save</button>',
 			"eval":function(){
-				document.getElementById('input1').value = config['syncro']['def']
+				document.getElementById('input1').value = parameter["server"]['def']
 				document.getElementById('input2').onclick = function(){
-					if(config["parm"]["syncro"] === true){
-						config['syncro']['def'] = document.getElementById('input1').value;
-						jsls();
+					if(parameter["syncro"] === true){
+						parameter["server"]['def'] = document.getElementById('input1').value;
+						pmls();
 					}
 				}
 				let cn = document.getElementById("syncro")
-				if(config["parm"]["syncro"] === true){
+				if(parameter["syncro"] === true){
 					cn.className = "input-chec input"
 					document.getElementById('input1').disabled = false
 				}else{
@@ -79,14 +79,14 @@ const page = {
 			"in":'<span>synchronization server</span><input id="input1" placeholder="http://example.com/sync.php" type="text"><div class="voidw"></div><button id="input2">save</button>'+
 			'<br><br><button class="alert" onclick="reac()">reset configuration</button><br><button onclick="storage()">storage</button>',
 			"eval":function(){
-				document.getElementById('input1').value = config['syncro']['dev']
+				document.getElementById('input1').value = parameter["server"]['dev']
 				document.getElementById('input2').onclick = function(){
-					if(config["parm"]["syncro"] === true){
-						config['syncro']['dev'] = document.getElementById('input1').value;
-						jsls();
+					if(parameter["syncro"] === true){
+						parameter["server"]['dev'] = document.getElementById('input1').value;
+						pmls();
 					}
 				}
-				if(config["parm"]["syncro"] === true){
+				if(parameter["syncro"] === true){
 					document.getElementById('input1').disabled = false
 				}else{
 					document.getElementById('input1').disabled = true
@@ -156,7 +156,7 @@ const clog = {
 		}
 		a = new Date()
 		this.log += "["+a.getDate()+"/"+a.getMonth()+1+"/"+a.getFullYear()+" "+a.getHours()+":"+a.getMinutes()+":"+a.getSeconds()+"]: "+text+c+"\n"
-		if(config["parm"]["dev-mode"] == true){
+		if(parameter["dev-mode"] == true){
 			let logele = document.createElement("div")
 			let tele = document.createElement("span")
 			tele.innerHTML = text
@@ -253,16 +253,19 @@ function lzw_decode(s) {
 	return out.join("");
 }
 /*end lib*/
+const dparm = {
+    "quick-bar-on":true,
+    "task-on":true,
+    "syncro":false,
+    "advanced-storage":false,
+    "dev-mode":false,
+	"server":{
+		"def":"",
+		"dev":""
+	}
+}
 
 const dconfig = {
-	"parm":{
-		"quick-bar-on":true,
-		"task-on":true,
-//		"auto-update":true,
-		"syncro":false,
-		"advanced-storage":false,
-		"dev-mode":false
-	},
 	"quick-bar-list":{
 		1:{
 			"title":"flamebousteur web-site",
@@ -284,11 +287,7 @@ const dconfig = {
 		},
 		"sselect":"google"
 	},
-	"task":[],
-	"syncro":{
-		"def":"",
-		"dev":""
-	}
+	"task":[]
 }
 
 let parm_open = false;
@@ -298,6 +297,12 @@ if(localStorage['configuration']){
 	config = JSON.parse(localStorage['configuration'])
 }else{
 	config = dconfig
+}
+let parameter;
+if(localStorage['parameter']){
+	parameter = JSON.parse(localStorage['parameter'])
+}else{
+	parameter = dparm
 }
 
 let ddata = {
@@ -311,7 +316,6 @@ if(localStorage['data']){
 	data = ddata
 }
 
-
 function jsls(){
 	if(localStorage['configuration'] != JSON.stringify(config)){
 		localStorage['configuration'] = JSON.stringify(config)
@@ -319,6 +323,10 @@ function jsls(){
 		localStorage['data'] = JSON.stringify(data)
 		syncro("in")
 	}
+}
+
+function pmls(){
+	localStorage['parameter'] = JSON.stringify(parameter)
 }
 
 let inputfocus = true;
@@ -447,7 +455,7 @@ function parm_g(){
 '	<div class="inin"></div>'+
 '</div>'
 		let cn = document.getElementById(element)
-		if(config["parm"][element] == true){
+		if(parameter[element] == true){
 			cn.className = "input-chec input"
 		}else{
 			cn.className = "input"
@@ -460,16 +468,16 @@ function parm(a,b){
 		let cn = document.getElementById(b)
 		if(cn.className == "input"){
 			cn.className = "input-chec input"
-			config["parm"][b] = true
+			parameter[b] = true
 		}else{
 			cn.className = "input"
-			config["parm"][b] = false
+			parameter[b] = false
 		}
 		if(location.hash == ""){
 			quick_bar_g()
 			chec_parm()
 		}
-		jsls()
+		pmls()
 	}else{
 		let p = document.getElementById('parm').style
 		if(a == 1){
@@ -501,7 +509,7 @@ function mp(){
 	pag.forEach(element =>{
 		sel.innerHTML += '<div onclick="openparm(\''+element+'\')"><span>'+element+'</span></div>'
 	})
-	if(config["parm"]["dev-mode"] == true){
+	if(parameter["dev-mode"] == true){
 		sel.innerHTML += '<div onclick="openparm(\'dev\')"><span>dev</span></div>'
 	}
 	openparm('general')
@@ -509,7 +517,7 @@ function mp(){
 
 /*quick_bar*/
 function qbon(){
-	if(config["parm"]["quick-bar-on"] == false){
+	if(parameter["quick-bar-on"] == false){
 		document.getElementById("quick-bar").style.visibility = "hidden"
 		document.getElementById("sc").style.left = "100px"
 		document.getElementById("sci").style.left = "calc(45% + 55px)"
@@ -590,7 +598,7 @@ function quick_bar_d(id){
 /* task */
 
 function tskon(){
-	if(config["parm"]["task-on"] == false){
+	if(parameter["task-on"] == false){
 		document.getElementById("inner_task").style.visibility = "hidden"
 	}else{
 		document.getElementById("inner_task").style.visibility = "visible"
@@ -697,7 +705,7 @@ function deltask(n){
 /*end task*/
 
 function syncro(type){
-	if(config["parm"]["syncro"] == true){
+	if(parameter["syncro"] == true){
 		let ele = document.createElement("div")
 		ele.className = "sync"
 		ele.style.opacity = "1"
@@ -706,12 +714,12 @@ function syncro(type){
 		let ready = false
 		let xhr = new XMLHttpRequest()
 		let url;
-		if(config["parm"]["dev-mode"] == true){
-			if(config["syncro"]["dev"] != ""){
-				url = config["syncro"]["dev"]+"?s="+type+"&t="+Date.now()
+		if(parameter["dev-mode"] == true){
+			if(parameter["server"]["dev"]){
+				url = parameter["server"]["dev"]+"?s="+type+"&t="+Date.now()
 				ready = true
-			}else if(config["syncro"]["def"] != ""){
-				url = config["syncro"]["def"]+"?s="+type+"&t="+Date.now()
+			}else if(parameter["server"]["def"]){
+				url = parameter["server"]["def"]+"?s="+type+"&t="+Date.now()
 				ready = true
 			}else{
 				ready = false
@@ -719,8 +727,8 @@ function syncro(type){
 				ele.style.borderBottomColor= "#AA0"
 			}
 		}else{
-			if(config["syncro"]["def"] != ""){
-				url = config["syncro"]["def"]+"?s="+type+"&t="+Date.now()
+			if(parameter["server"]["def"]){
+				url = parameter["server"]["def"]+"?s="+type+"&t="+Date.now()
 				ready = true
 			}else{
 				ready = false
@@ -909,10 +917,43 @@ var fs = {
 			}
 			xhr.onreadystatechange = function () {
 				if(xhr.readyState === 4 && xhr.status !== 400){
-					localStorage.setItem("./"+file,xhr.responseText)
+					if(xhr.responseText){
+						localStorage.setItem("./"+file,xhr.responseText)
+					}
 				}
 			}
 			xhr.send()
+		}else{
+			return false
+		}
+	},
+	"dowload":function(url,file){
+		if(url){
+			let name;
+			if(file){
+				name = file
+			}else{
+				name = url.split("/").pop()
+				if(name == ""){
+					name = url
+				}
+			}
+			if(this.file[file]){
+				return false
+			}else{
+				let xhr = new XMLHttpRequest()
+				xhr.open("GET", url, true)
+				xhr.onreadystatechange = function () {
+					if(xhr.readyState === 4 && xhr.status !== 400){
+						if(xhr.responseText){
+							localStorage.setItem("./"+name,xhr.responseText)
+						}
+					}
+				}
+				this.file[name] = {"original name":name}
+				localStorage["index"] = JSON.stringify(this.file)
+				xhr.send()
+			}
 		}else{
 			return false
 		}
@@ -952,28 +993,6 @@ var fs = {
 			return false
 		}
 	},
-	"dowload":function(url,file){
-		if(this.file[file]){
-			return false
-		}else{
-			if(url){
-				let xhr = new XMLHttpRequest()
-				xhr.open("GET", url, true)
-				xhr.onreadystatechange = function () {
-					if(xhr.readyState === 4 && xhr.status !== 400){
-						if(file){
-							if(xhr.responseText){
-								localStorage.setItem("./"+file,xhr.responseText)
-							}
-						}
-					}
-				}
-				xhr.send()
-			}else{
-				return false
-			}
-		}
-	},
 	"vertion":0
 }
 if(localStorage["index"]){
@@ -989,7 +1008,7 @@ function editfile(f){
 function openfile(file,original){
 	document.getElementById("innerfile").innerHTML = localStorage[file]
 	document.getElementById("file").innerHTML = file
-	if(!config.parm["advanced-storage"]){
+	if(!parameter["advanced-storage"]){
 		let act = "";
 		if(fs.data[original]){
 			if(fs.data[original]["url"]){
@@ -1019,21 +1038,21 @@ function storage(){
 	document.getElementById("pin").innerHTML = '<div id="action"></div><div id="innerfile"></div>'
 	document.getElementById("page").innerHTML = '<span id="file">storage</span>'
 	let a = []
-	if(config.parm["dev-mode"] == true){
+	if(parameter["dev-mode"] == true){
 		document.getElementById("page").innerHTML += '<div onclick="parm(2,\'advanced-storage\');storage()" id="advanced-storage" class="input"><div class="inin"></div></div>'
 		a.push("advanced-storage")
 		console.log("ok")
 	}
 	a.forEach(element => {
 		let cn = document.getElementById(element)
-		if(config["parm"][element] === true){
+		if(parameter[element] === true){
 			cn.className = "input-chec input"
 		}else{
 			cn.className = "input"
 		}
 	})
 	let allfiles;
-	if(config.parm["advanced-storage"]){
+	if(parameter["advanced-storage"]){
 		allfiles = Object.keys(localStorage)
 	}else{
 		allfiles = findex(fs.file)
@@ -1043,14 +1062,14 @@ function storage(){
 		ele.innerHTML = element
 		ele.onclick = function(){
 			let a = element
-			if(!config.parm["advanced-storage"]){
+			if(!parameter["advanced-storage"]){
 				a = "./"+element
 			}
 			openfile(a,element)
 		}
 		document.getElementById("pselector").appendChild(ele)
 	})
-	if(!config.parm["advanced-storage"]){
+	if(!parameter["advanced-storage"]){
 		let ele = document.createElement("div")
 		ele.innerHTML = "--add new file--"
 		ele.onclick = function(){
@@ -1064,7 +1083,9 @@ function storage(){
 /* dev function */
 function reac(){
 	config = dconfig
+	parameter = dparm
 	jsls()
+	pmls()
 	pr()
 }
 
