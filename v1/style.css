@@ -261,24 +261,25 @@ body{
 	border:1px solid #35C;
 }
 
-.input-chec:hover{
-	background-color:#57E;
-	border:1px solid #57E;
-}
-
-.input > .inin{
-	width:10px;
+.input::before{
+  position: absolute;
+  content: "";
+ 	width:10px;
 	height:10px;
 	background-color:#222;
 	border-radius:40px;
 	margin:2px;
 	margin-left: 1px;
-	transition:margin-left 0.5s, margin-right 0.5s;
+	transition:transform 0.5s;
 }
 
-.input-chec > .inin{
-	margin-left:14px;
-	margin-right:1px;
+.input[class~=input-chec]::before{
+	transform: translateX(12px);
+}
+
+.input-chec:hover{
+	background-color:#57E;
+	border:1px solid #57E;
 }
 
 #parm > .in > .confn{
@@ -511,19 +512,20 @@ body{
 	border:1px solid #57E;
 }
 
-#pin .inin .inin{
-	width:10px;
+#pin .input::before{
+  position: absolute;
+  content: "";
+ 	width:10px;
 	height:10px;
 	background-color:#222;
 	border-radius:40px;
 	margin:2px;
 	margin-left: 1px;
-	transition:margin-left 0.5s, margin-right 0.5s;
+	transition:transform 0.5s;
 }
 
-#pin .input-chec .inin{
-	margin-left:14px;
-	margin-right:1px;
+#pin .input[class~=input-chec]::before{
+	transform: translateX(12px);
 }
 
 #pin input[type=text]{
