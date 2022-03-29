@@ -641,19 +641,17 @@ var task = {
 		}
 		return result
 	},
-	"status":function(taskc, status){
-		let result;
+	"status":function(taskc){
 		if(config.task[taskc]){
-			if(status != null){
-				config.task[taskc]["status"] = status
-				result = config.task[taskc]["status"]
-			}else{
-				result = "a"
+			if(config.task[taskc]["status"]<4) {
+				config.task[taskc]["status"] += 1
+			} else {
+				config.task[taskc]["status"] = 0
 			}
+			return config.task[taskc]["status"]
 		}else{
-			result = false
+			return false
 		}
-		return result
 	}
 }
 
@@ -665,14 +663,10 @@ function generatetask(){
 	for (let element in config.task) {
 		let a = config.task[element]
 		let s = '<svg onclick="deltask('+i+')" id="del" xmlns="http://www.w3.org/2000/svg"><path d="m13,2l-12,0c-0.55,0 -1,-0.45 -1,-1s0.45,-1 1,-1l12,0c0.55,0 1,0.45 1,1s-0.45,1 -1,1z"></path></svg>'
-		let n = 1;
 		let c = ""
-		if(config.task[element]["status"] == 1){
-			n = 0;
-			c = "checked"
-		}
+		c = "color"+config.task[element]["status"]
 		b.innerHTML += '<div>'+
-'	<div type="button" onclick="task.status('+i+','+n+');generatetask()" class="checkbox '+c+'"></div>'+s+
+'	<div type="button" onclick="task.status('+i+');generatetask()" class="checkbox '+c+'"></div>'+s+
 '	<div onclick="mtask('+i+')" class="in" id="task_'+i+'">'+config.task[element]["name"]+'</div>'+
 '</div>';
 		i++

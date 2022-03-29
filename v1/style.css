@@ -652,8 +652,8 @@ body{
 	height:13px;
 	position:absolute;
 	margin:3px auto auto auto;
+	background-color:#16ab16;
 	left:25px;
-	background-color:#df1616;
 	border-radius:100%;
 	transition: all 0.25s;
 }
@@ -663,8 +663,8 @@ body{
 	cursor:pointer;
 }
 
-#task div .checked{
-	background-color:#16ab16;
+#task div .color1{
+	background-color:#e7e41f;
 }
 
 #task div #del{
