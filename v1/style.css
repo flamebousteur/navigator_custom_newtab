@@ -667,6 +667,10 @@ body{
 	background-color:#e7e41f;
 }
 
+#task div .color2{
+	background-color:#e71f1f;
+}
+
 #task div #del{
 	fill:#fff;
 	width:15px;

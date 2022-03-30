@@ -643,7 +643,7 @@ var task = {
 	},
 	"status":function(taskc){
 		if(config.task[taskc]){
-			if(config.task[taskc]["status"]<4) {
+			if(config.task[taskc]["status"]<2) {
 				config.task[taskc]["status"] += 1
 			} else {
 				config.task[taskc]["status"] = 0
