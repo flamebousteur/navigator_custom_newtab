@@ -371,54 +371,47 @@ function gclick(){
 let charge_bar_on = 1
 function charge_bar(t){
 	let cb = document.getElementById("charge_bar").style
-	if(t == 1){
-		charge_bar_on = 1
-	}else{
-		charge_bar_on = 0
-	}
-	if(charge_bar_on == 0){
-		cb.visibility = "hidden"
-	}else{
-		cb.visibility = "visible"
-	}
+	if(t == 1) charge_bar_on = 1
+	else charge_bar_on = 0
+	if(charge_bar_on == 0) cb.visibility = "hidden"
+	else cb.visibility = "visible"
 	function a(){
 		if(charge_bar_on == 1){
 			cb.backgroundPositionX = "0px"
-			window.setTimeout(function(){
-				b();
-			},1000)
+			window.setTimeout(function(){b();},1000)
 		}
 	}
 	function b(){
 		if(charge_bar_on == 1){
 			cb.backgroundPositionX = "1000px"
-			window.setTimeout(function(){
-				a()
-			},1000)
+			window.setTimeout(function(){a()},1000)
 		}
 	}
 	b()
 }
 
 /* search */
-function sckup(e){
+var CurentSearchSring = ""
+async function sckup(e){
 	if(e.key == "Enter"){
 		search()
-	}else if(e.key == "PageDown"){
-	}else if(e.key == "PageUp"){
-	}else{
+		CurentSearchSring = ""
+	} else if (e.key == "PageDown") {
+	} else if (e.key == "PageUp") {
+	} else {
 		/*
-		a = document.getElementById("sc").value
-		xhr too the google api "https://www.google.com/complete/search?q="+input+"&client=gws-wiz&xssi=t&pq="+input
+		CurentSearchSring = document.getElementById("sc").value
+		// use the duckduckgo api to get the search suggestions
+		let res = await fetch("https://ac.duckduckgo.com/ac/?q="+encodeURIComponent(CurentSearchSring)+"&type=list")
+
+		> problème can't by pass the "Access-Control-Allow-Origin" header
 		*/
 	}
 }
 
 function search(a){
 	let t = document.getElementById("sct").value
-	if(!a){
-		a = document.getElementById("sc").value
-	}
+	if(!a) a = document.getElementById("sc").value
 	if(a != ""){
 		a = a.replace(new RegExp("&", 'g'), "%26")
 		a = a.replace(new RegExp("/", 'g'), "%2F")
@@ -432,9 +425,7 @@ function g_search_type(){
 	sct.innerHTML = ''
 	for(element in config["search"]["type"]){
 		let selected = ""
-		if(element == config["search"]["selects"]){
-			selected = "selected"
-		}
+		if(element == config["search"]["selects"]) selected = "selected"
 		sct.innerHTML += '<option '+selected+' value="'+config["search"]["type"][element]["url"]+'">'+element+'</option>'
 	}
 }
@@ -1015,8 +1006,8 @@ function openfile(file,original){
 		act += '<button onclick="editfile(\''+file+'\')">edit</button>'
 		act += '<input value="'+original+'" id="inp1">'
 		document.getElementById("action").innerHTML = act
-		document.getElementById("inp1").onkeyup = function(){
-			if(event.key == "Enter"){
+		document.getElementById("inp1").onkeyup = function(e){
+			if(e.key == "Enter"){
 				if(document.getElementById('inp1').value){
 					fs.rename(original,document.getElementById('inp1').value)
 					storage()
