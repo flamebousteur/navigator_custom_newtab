@@ -47,29 +47,26 @@ const page = {
 				let a = ["quick-bar-on","task-on"]
 				a.forEach(element => {
 					let cn = document.getElementById(element)
-					if(parameter[element] === true){
-						cn.className = "input-chec input"
-					}else{
-						cn.className = "input"
-					}
+					if(parameter[element] === true) cn.className = "input-chec input"
+					else cn.className = "input"
 				})
 			}
 		},
 		"synchronization":{
 			"in":'<span>private server</span><div onclick="parm(2,\'syncro\');page.parm.synchronization.eval();" id="syncro" class="input"><div class="inin"></div></div><input id="input1" placeholder="http://example.com/sync.php" type="text"><div class="voidw"></div><button id="input2">save</button>',
-			"eval":function(){
+			"eval": function(){
 				document.getElementById('input1').value = parameter["server"]['def']
 				document.getElementById('input2').onclick = function(){
-					if(parameter["syncro"] === true){
+					if (parameter["syncro"] === true) {
 						parameter["server"]['def'] = document.getElementById('input1').value;
 						pmls();
 					}
 				}
 				let cn = document.getElementById("syncro")
-				if(parameter["syncro"] === true){
+				if (parameter["syncro"] === true) {
 					cn.className = "input-chec input"
 					document.getElementById('input1').disabled = false
-				}else{
+				} else {
 					cn.className = "input"
 					document.getElementById('input1').disabled = true
 				}
@@ -78,19 +75,16 @@ const page = {
 		"dev":{
 			"in":'<span>synchronization server</span><input id="input1" placeholder="http://example.com/sync.php" type="text"><div class="voidw"></div><button id="input2">save</button>'+
 			'<br><br><button class="alert" onclick="reac()">reset configuration</button><br><button onclick="storage()">storage</button>',
-			"eval":function(){
+			"eval": function(){
 				document.getElementById('input1').value = parameter["server"]['dev']
 				document.getElementById('input2').onclick = function(){
-					if(parameter["syncro"] === true){
+					if (parameter["syncro"] === true) {
 						parameter["server"]['dev'] = document.getElementById('input1').value;
 						pmls();
 					}
 				}
-				if(parameter["syncro"] === true){
-					document.getElementById('input1').disabled = false
-				}else{
-					document.getElementById('input1').disabled = true
-				}
+				if (parameter["syncro"] === true) document.getElementById('input1').disabled = false
+				else document.getElementById('input1').disabled = true
 			}
 		}
 	},
@@ -103,23 +97,16 @@ const page = {
 /*lib*/
 function findex(list) {
 	let result = [];
-	for (let[key,value] of Object.entries(list)) {
-		result.push(key);
-	}
+	for (let[key,value] of Object.entries(list)) result.push(key);
 	return result;
 }
 
 var flamebousteur_lib_msgs = [["",0.001]]
 var flamebousteur_lib_msg_on = true
 function msg(txt,time){
-	if(!document.getElementById("flamebousteur_lib_msg")){
-		document.body.innerHTML = '<div id="flamebousteur_lib_msg">msg</div>'+document.body.innerHTML
-	}
-	if(typeof time != 'undefined'){
-		time = time * 1000
-	}else{
-		time = 1000
-	}
+	if(!document.getElementById("flamebousteur_lib_msg")) document.body.innerHTML = '<div id="flamebousteur_lib_msg">msg</div>'+document.body.innerHTML
+	if(typeof time != 'undefined') time = time * 1000
+	else time = 1000
 	flamebousteur_lib_msgs.push([txt,time])
 	function msgb(){
 		flamebousteur_lib_msg_on = false
@@ -139,24 +126,21 @@ function msg(txt,time){
 		}
 		flamebousteur_lib_msgs.shift()
 	}
-	if(flamebousteur_lib_msg_on){
-		msgb()
-	}
+	if(flamebousteur_lib_msg_on) msgb()
 }
 
 const clog = {
 	"log":"",
-	"add":function(text,cn,comment){
+	"add": function(text,cn,comment) {
 		let c;
-		if(comment){
-			c = " : "+comment
-		}else{
+		if(comment) c = " : "+comment
+		else {
 			comment = ""
 			c = ""
 		}
 		a = new Date()
 		this.log += "["+a.getDate()+"/"+a.getMonth()+1+"/"+a.getFullYear()+" "+a.getHours()+":"+a.getMinutes()+":"+a.getSeconds()+"]: "+text+c+"\n"
-		if(parameter["dev-mode"] == true){
+		if (parameter["dev-mode"] == true) {
 			let logele = document.createElement("div")
 			let tele = document.createElement("span")
 			tele.innerHTML = text
@@ -164,13 +148,11 @@ const clog = {
 			logele.className = "clog "+cn
 			logele.onclick = function(){
 				let ele;
-				if(!document.getElementById("clogpopup")){
+				if (!document.getElementById("clogpopup")) {
 					ele = document.createElement("div")
 					ele.id = "clogpopup"
 					document.body.appendChild(ele)
-				}else{
-					ele = document.getElementById("clogpopup")
-				}
+				} else ele = document.getElementById("clogpopup")
 				ele.innerHTML = text+":<br>"+comment
 				let xele = document.createElement("div")
 				xele.innerHTML = "close"
@@ -189,9 +171,7 @@ const clog = {
 			document.getElementById("clog").appendChild(logele)
 			window.setTimeout(function(){
 				logele.style.opacity = "0"
-				window.setTimeout(function(){
-					logele.remove()
-				},1000)
+				window.setTimeout(function(){ logele.remove() },1000)
 			},1000)
 		}
 	},
@@ -212,9 +192,8 @@ function lzw_encode(s) {
 	let code = 256;
 	for (let i=1; i<data.length; i++) {
 		currChar=data[i];
-		if(dict[phrase + currChar] != null){
-			phrase += currChar;
-		}else{
+		if (dict[phrase + currChar] != null) phrase += currChar;
+		else {
 			out.push(phrase.length > 1 ? dict[phrase] : phrase.charCodeAt(0));
 			dict[phrase + currChar] = code;
 			code++;
@@ -222,9 +201,7 @@ function lzw_encode(s) {
 		}
 	}
 	out.push(phrase.length > 1 ? dict[phrase] : phrase.charCodeAt(0));
-	for(let i=0; i<out.length; i++){
-		out[i] = String.fromCharCode(out[i]);
-	}
+	for(let i=0; i<out.length; i++) out[i] = String.fromCharCode(out[i]);
 	return out.join("");
 }
 
@@ -239,11 +216,8 @@ function lzw_decode(s) {
 	let phrase;
 	for(let i=1; i<data.length; i++){
 		var currCode = data[i].charCodeAt(0);
-		if(currCode < 256){
-			phrase = data[i];
-		}else{
-			phrase = dict[currCode] ? dict[currCode] : (oldPhrase + currChar);
-		}
+		if(currCode < 256) phrase = data[i];
+		else phrase = dict[currCode] ? dict[currCode] : (oldPhrase + currChar);
 		out.push(phrase);
 		currChar = phrase.charAt(0);
 		dict[code] = oldPhrase + currChar;
@@ -293,28 +267,20 @@ const dconfig = {
 let parm_open = false;
 
 let config;
-if(localStorage['configuration']){
-	config = JSON.parse(localStorage['configuration'])
-}else{
-	config = dconfig
-}
+if (localStorage['configuration']) config = JSON.parse(localStorage['configuration'])
+else config = dconfig
+
 let parameter;
-if(localStorage['parameter']){
-	parameter = JSON.parse(localStorage['parameter'])
-}else{
-	parameter = dparm
-}
+if(localStorage['parameter']) parameter = JSON.parse(localStorage['parameter'])
+else parameter = dparm
 
 let ddata = {
-	"last_modif":0
+	"last_modif": 0
 }
 
 let data;
-if(localStorage['data']){
-	data = JSON.parse(localStorage['data'])
-}else{
-	data = ddata
-}
+if(localStorage['data']) data = JSON.parse(localStorage['data'])
+else data = ddata
 
 function jsls(){
 	if(localStorage['configuration'] != JSON.stringify(config)){
@@ -325,9 +291,7 @@ function jsls(){
 	}
 }
 
-function pmls(){
-	localStorage['parameter'] = JSON.stringify(parameter)
-}
+function pmls(){ localStorage['parameter'] = JSON.stringify(parameter) }
 
 let inputfocus = true;
 
@@ -337,21 +301,14 @@ function keycode(e){
 		if(e.ctrlKey == true){
 			switch(e.key){
 				case 'Tab':
-					if(parm_open){
-						parm()
-					}else{
-						parm(1)
-					}
+					if(parm_open) parm()
+					else parm(1)
 					break;
 			}
-		}else{
+		} else {
 			switch(e.key){
 				default:
-					if(e.key.length == 1){
-						if(inputfocus){
-							document.getElementById("sc").focus()
-						}
-					}
+					if(e.key.length == 1) if(inputfocus) document.getElementById("sc").focus()
 					break;
 			}
 		}
@@ -446,41 +403,36 @@ function parm_g(){
 '	<div class="inin"></div>'+
 '</div>'
 		let cn = document.getElementById(element)
-		if(parameter[element] == true){
-			cn.className = "input-chec input"
-		}else{
-			cn.className = "input"
-		}
+		if (parameter[element] == true) cn.className = "input-chec input"
+		else cn.className = "input"
 	})
 }
 
 function parm(a,b){
-	if(a == 2){
+	if (a == 2) {
 		let cn = document.getElementById(b)
-		if(cn.className == "input"){
+		if (cn.className == "input") {
 			cn.className = "input-chec input"
 			parameter[b] = true
-		}else{
+		} else {
 			cn.className = "input"
 			parameter[b] = false
 		}
-		if(location.hash == ""){
+		if (location.hash == "") {
 			quick_bar_g()
 			chec_parm()
 		}
 		pmls()
-	}else{
+	} else {
 		let p = document.getElementById('parm').style
-		if(a == 1){
+		if (a == 1) {
 			parm_open = true
 			p.opacity = "1"
 			p.visibility = "visible"
-		}else{
+		} else {
 			parm_open = false
 			p.opacity = "0"
-			window.setTimeout(function(){
-				p.visibility = "hidden"
-			},250);
+			window.setTimeout(function(){ p.visibility = "hidden" }, 250);
 		}
 	}
 }
@@ -496,13 +448,9 @@ function mp(){
 	document.getElementById("innerpage").innerHTML = page["parm"]["index"]
 	let sel = document.getElementById("pselector")
 	history.pushState("", "", "#parm")
-	document.getElementById("back").onclick = function (){pr()}
-	pag.forEach(element =>{
-		sel.innerHTML += '<div onclick="openparm(\''+element+'\')"><span>'+element+'</span></div>'
-	})
-	if(parameter["dev-mode"] == true){
-		sel.innerHTML += '<div onclick="openparm(\'dev\')"><span>dev</span></div>'
-	}
+	document.getElementById("back").onclick = function (){ pr() }
+	pag.forEach(element =>{ sel.innerHTML += '<div onclick="openparm(\''+element+'\')"><span>'+element+'</span></div>' })
+	if(parameter["dev-mode"] == true) sel.innerHTML += '<div onclick="openparm(\'dev\')"><span>dev</span></div>'
 	openparm('general')
 }
 
@@ -536,9 +484,7 @@ function quick_bar_g(){
 function addele(a){
 	inputfocus = false
 	let b = findex(config["quick-bar-list"]).length + 1;
-	if(a){
-		b = a;
-	}
+	if(a) b = a;
 
 	let c = document.getElementById("popup")
 
@@ -576,9 +522,7 @@ function addele(a){
 		quick_bar_g()
 		close()
 	}
-	document.getElementById("close").onclick = function(){
-		close()
-	}
+	document.getElementById("close").onclick = function(){ close() }
 }
 
 function quick_bar_d(id){
@@ -589,60 +533,42 @@ function quick_bar_d(id){
 /* task */
 
 function tskon(){
-	if(parameter["task-on"] == false){
-		document.getElementById("inner_task").style.visibility = "hidden"
-	}else{
-		document.getElementById("inner_task").style.visibility = "visible"
-	}
+	if (parameter["task-on"] == false) document.getElementById("inner_task").style.visibility = "hidden"
+	else document.getElementById("inner_task").style.visibility = "visible"
 }
 
 var task = {
-	"conf":{
-		"v":1
+	"conf": {
+		"v": 1
 	},
-	"delete":function(taskc){
+	"delete": function(taskc) {
 		let result;
-		if(config.task[taskc]){
-			result = config.task.splice(taskc,1)
-		}else{
-			result = false
-		}
+		if(config.task[taskc]) result = config.task.splice(taskc,1)
+		else result = false
 		return result
 	},
-	"add":function(name){
+	"add": function(name) {
 		let result;
-		if(name == null){
-			result = false
-		}else{
-			result = config.task.push({"name":name,"status":0})-1
-		}
+		if (name == null) result = false
+		else result = config.task.push({"name":name,"status":0})-1
 		return result
 	},
-	"modify":function(taskc, name){
+	"modify": function(taskc, name) {
 		let result;
 		if(config.task[taskc]){
 			if(name != ''){
 				config.task[taskc] = {"name":name,"status":config.task[taskc]["status"]}
 				result = name
-			}else{
-				result = false
-			}
-		}else{
-				result = false
-		}
+			} else result = false
+		} else result = false
 		return result
 	},
-	"status":function(taskc){
-		if(config.task[taskc]){
-			if(config.task[taskc]["status"]<2) {
-				config.task[taskc]["status"] += 1
-			} else {
-				config.task[taskc]["status"] = 0
-			}
+	"status": function(taskc) {
+		if (config.task[taskc]) {
+			if (config.task[taskc]["status"]<2) config.task[taskc]["status"] += 1
+			else config.task[taskc]["status"] = 0
 			return config.task[taskc]["status"]
-		}else{
-			return false
-		}
+		} else return false
 	}
 }
 
@@ -689,8 +615,8 @@ function deltask(n){
 }
 /*end task*/
 
-function syncro(type){
-	if(parameter["syncro"] == true){
+function syncro(type) {
+	if (parameter["syncro"] == true) {
 		let ele = document.createElement("div")
 		ele.className = "sync"
 		ele.style.opacity = "1"
@@ -699,46 +625,44 @@ function syncro(type){
 		let ready = false
 		let xhr = new XMLHttpRequest()
 		let url;
-		if(parameter["dev-mode"] == true){
-			if(parameter["server"]["dev"]){
+		if (parameter["dev-mode"] == true) {
+			if (parameter["server"]["dev"]) {
 				url = parameter["server"]["dev"]+"?s="+type+"&t="+Date.now()
 				ready = true
-			}else if(parameter["server"]["def"]){
+			} else if (parameter["server"]["def"]){
 				url = parameter["server"]["def"]+"?s="+type+"&t="+Date.now()
 				ready = true
-			}else{
+			} else {
 				ready = false
 				clog.add("server not set","logwarn")
 				ele.style.borderBottomColor= "#AA0"
 			}
-		}else{
-			if(parameter["server"]["def"]){
+		} else {
+			if (parameter["server"]["def"]) {
 				url = parameter["server"]["def"]+"?s="+type+"&t="+Date.now()
 				ready = true
-			}else{
+			} else {
 				ready = false
 				clog.add("server not set","logwarn")
 				ele.style.borderBottomColor= "#AA0"
 			}
 		}
-		if(ready == true){
+		if (ready == true) {
 			xhr.open("POST", url, true);
 			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			xhr.onreadystatechange = function () {
-				if(xhr.readyState === 4){
-					if(xhr.status == 0){
+				if (xhr.readyState === 4) {
+					if (xhr.status == 0) {
 						clog.add("sommething bad append","logalert")
 						ele.style.borderBottomColor= "#A00"
-					}else{
+					} else {
 						let lantence = Date.now() - t
 						let rep;
 						if(xhr.responseText){
 							clog.add("xhr reponse","lognormal","rep: "+xhr.responseText)
 							try{
 								rep = JSON.parse(xhr.responseText)
-							} catch {
-								rep = false
-							}
+							} catch { rep = false }
 							if(rep != false){
 								if(rep["config"]){
 									if(localStorage['configuration'] != rep["config"]){
@@ -747,9 +671,7 @@ function syncro(type){
 											config = JSON.parse(rep["config"])
 											clog.add("update","lognormal","new configuration: "+rep["config"])
 											cpage()
-										}else{
-											syncro('in')
-										}
+										} else syncro('in')
 									}
 								}
 								if(rep["status"].toString().startsWith(2)){
@@ -771,10 +693,8 @@ function syncro(type){
 				}
 				window.setTimeout(function(){
 					ele.style.opacity = "0"
-					window.setTimeout(function(){
-						ele.remove()
-					},1000)
-				},1000)
+					window.setTimeout(function(){ ele.remove() }, 1000)
+				}, 1000)
 			}
 			clog.add("synchronization","lognormal","url: "+url)
 			let t;
@@ -786,223 +706,153 @@ function syncro(type){
 				xhr.send("f="+localStorage['configuration']+"&t="+data["last_modif"])
 			}
 			return true
-		}else{
+		} else {
 			window.setTimeout(function(){
 				ele.style.opacity = "0"
-				window.setTimeout(function(){
-					ele.remove()
-				},1000)
-			},500)
+				window.setTimeout(function(){ ele.remove() }, 1000)
+			}, 500)
 			return false
 		}
-	}else{
-		return false
-	}
+	} else return false
 }
 
 /* storage */
 var fs = {
 	"file":{},
 	"data":{},
-	"add":function(name,cont,ourl,mime){
+	"add": function(name,cont,ourl,mime) {
 		if(name){
-			if(cont){
-				localStorage.setItem("./"+name,""+cont)
-			}
+			if(cont) localStorage.setItem("./"+name,""+cont)
 			this.file[name] = {"original name":name}
-			if(ourl){
-				this.file[name]["original url"] = ourl
-			}
-			if(mime){
-				this.file[name]["MIME"] = mime
-			}else{
-				this.file[name]["MIME"] = "text/plain"
-			}
+			if(ourl) this.file[name]["original url"] = ourl
+			if(mime) this.file[name]["MIME"] = mime
+			else this.file[name]["MIME"] = "text/plain"
 			localStorage["index"] = JSON.stringify(this.file)
 			return true
-		}else{
-			return false
-		}
+		} else return false
 	},
-	"remove":function(file){
-		if(this.file[file]){
-			if(localStorage.getItem("./"+file)){
-				localStorage.removeItem("./"+file)
-			}
+	"remove": function(file) {
+		if (this.file[file]) {
+			if (localStorage.getItem("./"+file)) localStorage.removeItem("./"+file)
 			delete this.file[file]
 			localStorage["index"] = JSON.stringify(this.file)
 			return true
-		}else{
-			return false
-		}
+		} else return false
 	},
-	"modify":function(file,cont,force){
-		if(localStorage.getItem("./"+file)){
-			if(this.file[file]){
+	"modify": function(file,cont,force) {
+		if (localStorage.getItem("./"+file)) {
+			if (this.file[file]) {
 				localStorage.setItem("./"+file,cont)
 				return true
-			}else{
-				return false
-			}
-		}else{
-			if(force != false){
-				return this.add(file,cont)
-			}else{
-				return false
-			}
+			} else return false
+		} else {
+			if(force != false) return this.add(file,cont)
+			else return false
 		}
 	},
-	"rename":function(file,name){
-		if(this.file[file]){
-			if(this.file[name]){
-				return false
-			}else{
+	"rename": function(file,name) {
+		if (this.file[file]) {
+			if (this.file[name]) return false
+			else {
 				this.file[name] = this.file[file]
 				this.remove(file)
-				if(localStorage.getItem("./"+file)){
+				if (localStorage.getItem("./"+file)) {
 					localStorage.setItem("./"+name,localStorage.getItem("./"+file))
 					localStorage.remove("./"+file)
 				}
 				return true
 			}
 			return false
-		}else{
-			return false
-		}
+		} else return false
 	},
-	"getFile":function(file){
-		if(localStorage.getItem("./"+file)){
-			return localStorage.getItem("./"+file)
-		}
+	"getFile": function(file) {
+		if (localStorage.getItem("./"+file)) return localStorage.getItem("./"+file)
 	},
-	"setMime":function(file,mime){
-		if(localStorage.getItem("./"+file)){
-			if(this.file[file]){
+	"setMime": function(file,mime) {
+		if (localStorage.getItem("./"+file)) {
+			if (this.file[file]) {
 				this.file[file]["mime"] = ""+mime
 				localStorage["index"] = JSON.stringify(this.file)
 				return true
-			}else{
-				return false
-			}
-		}else{
-			return false
-		}
+			} else return false
+		} else return false
 	},
-	"update":function(file,url){
+	"update": function(file,url) {
 		if(this.file[file]){
 			let xhr = new XMLHttpRequest()
 			if(!url){
-				if(this.file[file]["original url"]){
-					xhr.open("GET", this.file[file]["original url"], true)
-				}else{
-					return false
-				}
-			}else{
-				xhr.open("GET", url, true)
-			}
+				if (this.file[file]["original url"]) xhr.open("GET", this.file[file]["original url"], true)
+				else return false
+			} else xhr.open("GET", url, true)
 			xhr.onreadystatechange = function () {
-				if(xhr.readyState === 4 && xhr.status !== 400){
-					if(xhr.responseText){
-						localStorage.setItem("./"+file,xhr.responseText)
-					}
-				}
+				if(xhr.readyState === 4 && xhr.status !== 400) if(xhr.responseText) localStorage.setItem("./"+file,xhr.responseText)
 			}
 			xhr.send()
-		}else{
-			return false
-		}
+		} else return false
 	},
-	"dowload":function(url,file){
-		if(url){
+	"dowload": function(url,file) {
+		if (url) {
 			let name;
-			if(file){
-				name = file
-			}else{
+			if(file) name = file
+			else {
 				name = url.split("/").pop()
-				if(name == ""){
-					name = url
-				}
+				if(name == "") name = url
 			}
-			if(this.file[file]){
-				return false
-			}else{
+			if (this.file[file]) return false
+			else {
 				let xhr = new XMLHttpRequest()
 				xhr.open("GET", url, true)
 				xhr.onreadystatechange = function () {
-					if(xhr.readyState === 4 && xhr.status !== 400){
-						if(xhr.responseText){
-							localStorage.setItem("./"+name,xhr.responseText)
-						}
-					}
+					if(xhr.readyState === 4 && xhr.status !== 400) if(xhr.responseText) localStorage.setItem("./"+name,xhr.responseText)
 				}
 				this.file[name] = {"original name":name}
 				localStorage["index"] = JSON.stringify(this.file)
 				xhr.send()
 			}
-		}else{
-			return false
-		}
+		} else return false
 	},
-	"getUrl":function(file){
-		if(this.file[file]){
-			if(this.data[file]){
-				if(this.data[file]["url"]){
-					return this.data[file]["url"]
-				}else{
+	"getUrl": function(file) {
+		if (this.file[file]) {
+			if (this.data[file]) {
+				if(this.data[file]["url"]) return this.data[file]["url"]
+				else {
 					let url;
-					if(localStorage.getItem("./"+file)){
+					if (localStorage.getItem("./"+file)) {
 						let b = new Blob([localStorage.getItem("./"+file)],{type : this.file[file]["MIME"]})
 						url = window.URL.createObjectURL(b);
-					}else if(this.file[file]["original url"]){
-						url = this.file[file]["original url"]
-					}
+					} else if (this.file[file]["original url"]) url = this.file[file]["original url"]
 					this.data[file] = {"url":url}
 					return url
 				}
-			}else{
+			} else {
 				let url;
-				if(localStorage.getItem("./"+file)){
+				if (localStorage.getItem("./"+file)) {
 					let b = new Blob([localStorage.getItem("./"+file)],{type : this.file[file]["MIME"]})
 					url = window.URL.createObjectURL(b);
 					this.data[file] = {"url":url}
 					return url
-				}else if(this.file[file]["original url"]){
+				} else if (this.file[file]["original url"]){
 					url = this.file[file]["original url"]
 					this.data[file] = {"url":url}
 					return url
-				}else{
-					return false
-				}
+				} else return false
 			}
-		}else{
-			return false
-		}
+		} else return false
 	},
 	"vertion":0
 }
-if(localStorage["index"]){
-	fs.file = JSON.parse(localStorage["index"])
-}else{
-	fs.file = {}
-}
+if(localStorage["index"]) fs.file = JSON.parse(localStorage["index"])
+else fs.file = {}
 
-function editfile(f){
-	document.getElementById('innerfile').innerHTML = '<textarea id="in_file">'+localStorage[f]+'</textarea><button onclick="localStorage[\''+f+'\'] = document.getElementById(\'in_file\').value;storage()">save</button>'
-}
+function editfile(f){ document.getElementById('innerfile').innerHTML = '<textarea id="in_file">'+localStorage[f]+'</textarea><button onclick="localStorage[\''+f+'\'] = document.getElementById(\'in_file\').value;storage()">save</button>' }
 
 function openfile(file,original){
 	document.getElementById("innerfile").innerHTML = localStorage[file]
 	document.getElementById("file").innerHTML = file
 	if(!parameter["advanced-storage"]){
 		let act = "";
-		if(fs.data[original]){
-			if(fs.data[original]["url"]){
-				act += '<button onclick="window.open(\''+fs.data[original]["url"]+'\',\'_blank\')">open url</button>'
-			}
-		}
-		if(original){
-			act += '<button onclick="fs.remove(\''+original+'\');storage()">delete</button>'
-		}
+		if(fs.data[original]) if(fs.data[original]["url"]) act += '<button onclick="window.open(\''+fs.data[original]["url"]+'\',\'_blank\')">open url</button>'
+		if(original) act += '<button onclick="fs.remove(\''+original+'\');storage()">delete</button>'
 		act += '<button onclick="editfile(\''+file+'\')">edit</button>'
 		act += '<input value="'+original+'" id="inp1">'
 		document.getElementById("action").innerHTML = act
@@ -1030,26 +880,18 @@ function storage(){
 	}
 	a.forEach(element => {
 		let cn = document.getElementById(element)
-		if(parameter[element] === true){
-			cn.className = "input-chec input"
-		}else{
-			cn.className = "input"
-		}
+		if(parameter[element] === true) cn.className = "input-chec input"
+		else cn.className = "input"
 	})
 	let allfiles;
-	if(parameter["advanced-storage"]){
-		allfiles = Object.keys(localStorage)
-	}else{
-		allfiles = findex(fs.file)
-	}
+	if(parameter["advanced-storage"]) allfiles = Object.keys(localStorage)
+	else allfiles = findex(fs.file)
 	allfiles.forEach(function(element){
 		let ele = document.createElement("div")
 		ele.innerHTML = element
 		ele.onclick = function(){
 			let a = element
-			if(!parameter["advanced-storage"]){
-				a = "./"+element
-			}
+			if(!parameter["advanced-storage"]) a = "./"+element
 			openfile(a,element)
 		}
 		document.getElementById("pselector").appendChild(ele)
@@ -1084,9 +926,7 @@ function gall(){
 
 function logpage(){
 	document.getElementById("innerpage").innerHTML = page["advanced"]["log"]
-	document.getElementById("in3").onclick = function(){
-		clog.add(document.getElementById("in1").value,"lognormal",document.getElementById("in2").value)
-	}
+	document.getElementById("in3").onclick = function(){ clog.add(document.getElementById("in1").value,"lognormal",document.getElementById("in2").value) }
 	function a(){
 		document.getElementById("log").innerHTML = clog.log
 		window.setTimeout(a,1000)
@@ -1103,15 +943,10 @@ function pr(){
 
 function cpage(){
 	let p = location.hash
-	if(p == "#parm"){
-		mp()
-	}else if(p == "#log"){
-		logpage()
-	}else if(p == "#storage"){
-		storage()
-	}else{
-		pr()
-	}
+	if(p == "#parm") mp()
+	else if(p == "#log") logpage()
+	else if(p == "#storage") storage()
+	else pr()
 }
 
 window.onload = function(){
